@@ -1,66 +1,37 @@
-body {
+* {
     margin: 0;
-    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0a2a;
+    color: #fff;
 }
 
-#info {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(0,0,0,0.85);
-    color: #eee;
-    padding: 12px 20px;
-    border-radius: 8px;
-    pointer-events: none;
-    z-index: 10;
-    font-size: 13px;
-    font-family: monospace;
-    border-left: 4px solid #ffaa66;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-.controls {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background: rgba(0,0,0,0.7);
-    padding: 10px 20px;
-    border-radius: 8px;
-    pointer-events: auto;
-    z-index: 10;
-    display: flex;
-    gap: 10px;
-    backdrop-filter: blur(4px);
-}
-
-button {
-    padding: 8px 16px;
-    cursor: pointer;
-    border: none;
+::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
     border-radius: 4px;
-    background-color: #007bff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #88aaff;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ffaa66;
+}
+
+/* Selection styling */
+::selection {
+    background: #9b59b6;
     color: white;
-    font-weight: bold;
-    transition: all 0.2s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.02);
-}
-
-.status {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0,0,0,0.7);
-    color: #0f0;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 11px;
-    pointer-events: none;
-    backdrop-filter: blur(4px);
 }
