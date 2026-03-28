@@ -1,1 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflatable Origami Structures | FYP Project</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+    <div class="header-with-logo">
+        <img src="images/LAUlogo.png" alt="LAU Logo" class="logo" onerror="this.style.display='none'">
+        <div class="university-info">
+            <div class="university-name">Lebanese American University</div>
+            <div class="university-sub">School of Engineering</div>
+        </div>
+    </div>
+    
+    <nav class="nav" style="margin-top: 80px;">
+        <a href="#about">About</a>
+        <a href="#origami">Origami</a>
+        <a href="#mechanical">Mechanical</a>
+        <a href="#kinematics">Kinematics</a>
+        <a href="#materials">Materials</a>
+        <a href="airflow.html">💨 Airflow</a>
+        <a href="#team">Team</a>
+        <a href="model.html" class="cta-nav">🎮 3D Model</a>
+    </nav>
 
+    <section class="hero" style="padding-top: 100px;">
+        <div class="hero-content">
+            <div class="badge">🎓 Mechanical Engineering Final Year Project</div>
+            <h1>Multistable Inflatable Origami Structures</h1>
+            <p>A novel approach to deployable architecture using geometric frustration and fluidic actuation</p>
+            <a href="model.html" class="cta-button">🚀 Launch Interactive 3D Model →</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">📖 About This Project</h2>
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h3>🏗️ Why This Shape?</h3>
+                    <p>Inspired by the inscribed angle theorem</p>
+                </div>
+                <div class="topic-content">
+                    <p>The shelter design allows triangular building blocks to have two compatible states: flat and deployed. This creates a structure that can:</p>
+                    <ul style="margin-top: 15px; margin-left: 20px; color: #ccc;">
+                        <li>✅ Fold flat for transport (0.5m height)</li>
+                        <li>✅ Deploy to full height (2.3m) using air pressure</li>
+                        <li>✅ Remain rigid without continuous power (bistability)</li>
+                        <li>✅ Provide a functional door for access</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h3>🎯 Design Inspiration</h3>
+                    <p>Based on Harvard University research</p>
+                </div>
+                <div class="topic-content">
+                    <ul style="margin-left: 20px; color: #ccc;">
+                        <li>🏕️ Rapid deployment for disaster relief</li>
+                        <li>🚚 Flat-pack transport (fits on a truck)</li>
+                        <li>💨 Inflation with any air pump</li>
+                        <li>🔒 Self-locking due to geometric incompatibility</li>
+                    </ul>
+                    <div class="specs-grid" style="margin-top: 15px;">
+                        <div class="spec-item"><div class="spec-value">16</div><div class="spec-label">Faces (Full Circle)</div></div>
+                        <div class="spec-item"><div class="spec-value">14</div><div class="spec-label">Faces (Door Side)</div></div>
+                        <div class="spec-item"><div class="spec-value">2.3m</div><div class="spec-label">Full Height</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="origami" class="section">
+        <h2 class="section-title">📐 Origami Geometry</h2>
+        <p class="section-subtitle">Based on the inscribed angle theorem</p>
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-header"><h3>📦 Volume</h3><p>Triangular building block</p></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ V_{ABC} = \frac{w_A \|AB\|^2}{6} \frac{\sin \alpha}{\sin(\alpha+\beta)} \sqrt{\sin^2 \beta - \frac{w_A^2}{\|AB\|^2}} \]</div>
+                    <div class="param-list">
+                        <div class="param-item"><span class="param-name">α, β</span> - Internal angles</div>
+                        <div class="param-item"><span class="param-name">||AB||</span> - Edge length (949 mm)</div>
+                        <div class="param-item"><span class="param-name">w_A</span> - Deployment height</div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic-card">
+                <div class="topic-header"><h3>📏 Compatible Height</h3><p>Stable deployed state</p></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ w_A^c = \|AB\| \sqrt{1 - \frac{\cos^2 \beta}{\sin^2(\alpha + \beta)}} \]</div>
+                    <div class="spec-item"><div class="spec-value">605.3 mm</div><div class="spec-label">Slant Edge</div></div>
+                </div>
+            </div>
+            <div class="topic-card">
+                <div class="topic-header"><h3>📈 Max Volume</h3><p>Peak inflation point</p></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ V_{max} = \frac{\|AB\|^3 \sin \alpha \sin^2 \beta}{12 \sin(\alpha + \beta)} \]</div>
+                </div>
+            </div>
+            <div class="topic-card">
+                <div class="topic-header"><h3>⚠️ Geometric Incompatibility</h3><p>Energy barrier for bistability</p></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ \Delta_{ABC} = \|AC_{xy}\| \cdot \sin(\alpha_{xy} - \alpha) \]</div>
+                    <p>When Δ = 0 → Stable state. Maximum Δ creates the snap-through energy barrier.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mechanical" class="section">
+        <h2 class="section-title">⚙️ Mechanical Engineering Design</h2>
+        <p class="section-subtitle">Based on Shigley's Mechanical Engineering Design</p>
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-header"><h3>⚖️ Equilibrium & Free-Body Diagrams</h3></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ \sum F = 0 \qquad \sum M = 0 \]</div>
+                    <p>For the shelter structure, the main forces are wind load, self-weight, and internal pressure.</p>
+                </div>
+            </div>
+            <div class="topic-card">
+                <div class="topic-header"><h3>✂️ Shear Force & Bending Moment</h3></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ V = \frac{dM}{dx} \qquad \frac{dV}{dx} = q \]</div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><div class="spec-value">1250 N</div><div class="spec-label">Max Shear</div></div>
+                        <div class="spec-item"><div class="spec-value">3125 N·m</div><div class="spec-label">Max Moment</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic-card">
+                <div class="topic-header"><h3>📊 Principal Stresses (Mohr's Circle)</h3></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ \sigma_{1,2} = \frac{\sigma_x + \sigma_y}{2} \pm \sqrt{\left(\frac{\sigma_x - \sigma_y}{2}\right)^2 + \tau_{xy}^2} \]</div>
+                    <div class="equation-box">\[ \tan 2\phi_p = \frac{2\tau_{xy}}{\sigma_x - \sigma_y} \]</div>
+                </div>
+            </div>
+            <div class="topic-card">
+                <div class="topic-header"><h3>🏭 Pressurized Cylinder</h3></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ \sigma_{\theta} = \frac{pr}{t} \qquad \sigma_a = \frac{pr}{2t} \]</div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><div class="spec-value">1.2 MPa</div><div class="spec-label">Internal Pressure</div></div>
+                        <div class="spec-item"><div class="spec-value">48 MPa</div><div class="spec-label">Hoop Stress</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic-card">
+                <div class="topic-header"><h3>📐 Curved Beam in Bending</h3></div>
+                <div class="topic-content">
+                    <div class="equation-box">\[ \sigma = \frac{My}{Ae(r_n - y)} \]</div>
+                    <div class="equation-box">\[ r_n = \frac{A}{\int \frac{dA}{r}} \]</div>
+                </div>
+            </
