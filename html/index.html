@@ -8,18 +8,28 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
+    <!-- Header with Logo -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: rgba(10,10,42,0.95); position: fixed; top: 0; left: 0; right: 0; z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <img src="../images/LAUlogo.png" alt="LAU Logo" style="height: 50px; width: auto;">
+        <div style="text-align: right;">
+            <div style="color: #ffaa66; font-size: 12px;">Lebanese American University</div>
+            <div style="color: #aaa; font-size: 10px;">School of Engineering</div>
+        </div>
+    </div>
+    
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" style="margin-top: 80px;">
         <a href="#about">About</a>
         <a href="#origami-calc">Origami Calculations</a>
         <a href="#mechanical-calc">Mechanical Design</a>
         <a href="#kinematics">Kinematics</a>
         <a href="#materials">Materials</a>
+        <a href="#team">Team</a>
         <a href="model.html" class="cta-nav">🎮 3D Model</a>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" style="padding-top: 100px;">
         <div class="hero-content">
             <div class="badge">🎓 Mechanical Engineering Final Year Project</div>
             <h1>Multistable Inflatable Origami Structures</h1>
@@ -121,9 +131,9 @@
                 <div class="equation-box">
                     <p class="equation">\[ \text{FOS} = \frac{\sigma_{\text{yield}}}{\sigma_{\text{max von Mises}}} \]</p>
                 </div>
-                <p style="color: #aaa;">For our corrugated plastic structure, with estimated maximum stress of 3.5 MPa and yield strength of 12 MPa:</p>
+                <p style="color: #aaa;">For our corrugated plastic structure (2mm thickness), with estimated maximum stress of 3.8 MPa and yield strength of 12 MPa:</p>
                 <div class="equation-box">
-                    <p class="equation">\[ \text{FOS} = \frac{12 \text{ MPa}}{3.5 \text{ MPa}} = 3.43 \]</p>
+                    <p class="equation">\[ \text{FOS} = \frac{12 \text{ MPa}}{3.8 \text{ MPa}} = 3.16 \]</p>
                 </div>
                 <p style="color: #88ff88;">✓ FOS > 2.0 → Safe design</p>
             </div>
@@ -135,7 +145,7 @@
                 <p style="color: #aaa;">Where:</p>
                 <ul style="color: #aaa; margin-left: 20px;">
                     <li>M = Bending moment (N·mm)</li>
-                    <li>c = Distance to neutral axis (thickness/2)</li>
+                    <li>c = Distance to neutral axis (thickness/2 = 1 mm)</li>
                     <li>I = Moment of inertia = (b·h³)/12</li>
                 </ul>
             </div>
@@ -189,7 +199,7 @@
     <!-- Materials Section -->
     <section id="materials" class="section">
         <h2 class="section-title">🧪 Material Selection</h2>
-        <p class="section-subtitle">Corrugated Plastic Sheets - Properties and Justification</p>
+        <p class="section-subtitle">Corrugated Plastic Sheets (2mm thickness) - Properties and Justification</p>
         
         <div class="two-column">
             <div>
@@ -197,7 +207,7 @@
                 <table class="material-table">
                     <tr><th>Property</th><th>Value</th></tr>
                     <tr><td>Material</td><td>Polypropylene Corrugated Sheet</td></tr>
-                    <tr><td>Thickness</td><td>4 mm (meter-scale) / 5 mm (prototype)</td></tr>
+                    <tr><td>Thickness</td><td>2 mm</td></tr>
                     <tr><td>Yield Strength</td><td>12 MPa</td></tr>
                     <tr><td>Elastic Modulus</td><td>1.5 GPa</td></tr>
                     <tr><td>Density</td><td>0.9 g/cm³</td></tr>
@@ -219,16 +229,46 @@
         
         <div>
             <h3>Hinge Design</h3>
-            <p style="color: #aaa;">Hinges are created by <strong>scoring</strong> (removing 75% of material thickness) along fold lines. For higher stress areas, <strong>engraving</strong> creates additional compliance to accommodate geometric frustration.</p>
+            <p style="color: #aaa;">Hinges are created by <strong>scoring</strong> (removing 75% of material thickness) along fold lines. For 2mm thick sheets, the remaining thickness at hinges is approximately 0.5mm, providing adequate flexibility while maintaining structural integrity.</p>
             <div class="equation-box">
                 <p class="equation">\[ \text{Hinge Stiffness} \propto \frac{E \cdot t_{\text{remaining}}^3}{12} \]</p>
             </div>
         </div>
     </section>
 
+    <!-- Team Section -->
+    <section id="team" class="section">
+        <h2 class="section-title">👥 Project Team</h2>
+        <p class="section-subtitle">Mechanical Engineering Final Year Project</p>
+        
+        <div class="team-container">
+            <div class="team-member">
+                <img src="../images/Teamimage.png" alt="Team Member" class="team-avatar">
+                <div class="team-name">Your Name</div>
+                <div class="team-role">Project Lead & Design Engineer</div>
+            </div>
+            <div class="team-member">
+                <img src="../images/Teamimage.png" alt="Team Member" class="team-avatar">
+                <div class="team-name">Team Member 2</div>
+                <div class="team-role">Structural Analysis & Simulation</div>
+            </div>
+            <div class="team-member">
+                <img src="../images/Teamimage.png" alt="Team Member" class="team-avatar">
+                <div class="team-name">Team Member 3</div>
+                <div class="team-role">Fabrication & Testing</div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="color: #aaa;">Supervised by: Dr. [Supervisor Name]</p>
+            <p style="color: #aaa;">Lebanese American University - School of Engineering</p>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2024 Mechanical Engineering Final Year Project | Based on research by Melancon et al. "Multistable inflatable origami structures at the meter-scale"</p>
+        <p>© 2024 Mechanical Engineering Final Year Project | Lebanese American University</p>
+        <p>Based on research by Melancon et al. "Multistable inflatable origami structures at the meter-scale"</p>
         <p>Technologies: Three.js | HTML5/CSS3 | JavaScript | MathJax | Rodrigues Rotation Formula</p>
     </footer>
 
