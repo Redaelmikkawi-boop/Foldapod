@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airflow Simulation | Inflatable Origami Shelter</title>
+    <title>CFD Airflow Simulation | Inflatable Origami Shelter</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
         body {
@@ -127,11 +127,11 @@
     <a href="index.html" class="back-button">← Back to Project Overview</a>
     
     <div id="info">
-        <strong>💨 3D Airflow Simulation</strong><br>
+        <strong>💨 CFD Airflow Simulation</strong><br>
         🌬️ Wind Direction: <span style="color:#88aaff">-X → +X</span> (Left to Right)<br>
         💨 Wind Speed: <span style="color:#88aaff">10 m/s</span> (Normal Wind)<br>
-        🌀 Flow Type: <span style="color:#88aaff">Turbulent (Re ≈ 1.2×10⁶)</span><br>
-        🎯 Particles: <span style="color:#88aaff">250 moving particles</span><br>
+        🔵 <span style="color:#44aaff">Blue</span> = Laminar Flow | 🟠 <span style="color:#ff8844">Orange</span> = Turbulent Wake<br>
+        🔴 <span style="color:#ff4444">Red</span> = Impact/Separation Zone<br>
         🖱️ <span style="color:#ffaa66">Drag to rotate | Right-click to pan | Scroll to zoom</span>
     </div>
     
@@ -177,7 +177,6 @@
         let gridVisible = true;
         document.getElementById('toggle-grid').addEventListener('click', () => {
             gridVisible = !gridVisible;
-            const grids = document.querySelectorAll('.grid-helper');
         });
     </script>
 </body>
