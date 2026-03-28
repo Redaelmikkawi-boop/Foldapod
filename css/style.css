@@ -290,6 +290,66 @@ body {
     font-weight: bold;
 }
 
+/* Team Section */
+.team-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 40px 0;
+}
+
+.team-member {
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 20px;
+    min-width: 200px;
+}
+
+.team-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #ffaa66;
+}
+
+.team-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #88aaff;
+}
+
+.team-role {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+/* Header with Logo */
+.header-with-logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: rgba(10,10,42,0.8);
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+}
+
+.university-name {
+    font-size: 0.9rem;
+    color: #aaa;
+    text-align: right;
+}
+
 /* Footer */
 .footer {
     text-align: center;
