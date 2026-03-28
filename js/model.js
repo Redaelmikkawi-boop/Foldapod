@@ -73,18 +73,21 @@ function createTriangularFace(v1, v2, v3, color = 0x66aaff, opacity = 0.85) {
     const v2b = v2.clone().add(extrudeDir);
     const v3b = v3.clone().add(extrudeDir);
     const material = new THREE.MeshPhongMaterial({ color: color, side: THREE.DoubleSide, shininess: 80, transparent: true, opacity: opacity });
+    
     const frontGeo = new THREE.BufferGeometry();
     const frontVerts = [v1.x, v1.y, v1.z, v2.x, v2.y, v2.z, v3.x, v3.y, v3.z];
     frontGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(frontVerts), 3));
     frontGeo.setIndex([0, 1, 2]);
     frontGeo.computeVertexNormals();
     group.add(new THREE.Mesh(frontGeo, material));
+    
     const backGeo = new THREE.BufferGeometry();
     const backVerts = [v1b.x, v1b.y, v1b.z, v2b.x, v2b.y, v2b.z, v3b.x, v3b.y, v3b.z];
     backGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(backVerts), 3));
     backGeo.setIndex([0, 1, 2]);
     backGeo.computeVertexNormals();
     group.add(new THREE.Mesh(backGeo, material));
+    
     group.add(createSideFace(v1, v2, v2b, v1b, color));
     group.add(createSideFace(v2, v3, v3b, v2b, color));
     group.add(createSideFace(v3, v1, v1b, v3b, color));
@@ -215,13 +218,17 @@ function updateModel() {
         scene.add(currentModel);
         doorModel = createDoorGroup(doorAngle);
         scene.add(doorModel);
-        document.getElementById('status').innerHTML = '🟣 Full Model Mode | Door Closed';
-        document.getElementById('door-slider-container').style.display = 'flex';
+        const statusElem = document.getElementById('status');
+        if (statusElem) statusElem.innerHTML = '🟣 Full Model Mode | Door Closed';
+        const sliderContainer = document.getElementById('door-slider-container');
+        if (sliderContainer) sliderContainer.style.display = 'flex';
     } else {
         currentModel = createSingleFaceModel();
         scene.add(currentModel);
-        document.getElementById('status').innerHTML = '🔴 Single Face Mode';
-        document.getElementById('door-slider-container').style.display = 'none';
+        const statusElem = document.getElementById('status');
+        if (statusElem) statusElem.innerHTML = '🔴 Single Face Mode';
+        const sliderContainer = document.getElementById('door-slider-container');
+        if (sliderContainer) sliderContainer.style.display = 'none';
     }
 }
 
@@ -232,8 +239,10 @@ function updateDoorAngle(angleDeg) {
         doorModel = createDoorGroup(doorAngle);
         scene.add(doorModel);
         const statusText = doorAngle === 0 ? 'Door Closed' : (doorAngle >= 90 ? 'Door Fully Open' : `Door ${doorAngle}° Open`);
-        document.getElementById('status').innerHTML = `🟣 Full Model Mode | ${statusText}`;
-        document.getElementById('door-angle-value').innerText = `${doorAngle}°`;
+        const statusElem = document.getElementById('status');
+        if (statusElem) statusElem.innerHTML = `🟣 Full Model Mode | ${statusText}`;
+        const angleValueElem = document.getElementById('door-angle-value');
+        if (angleValueElem) angleValueElem.innerText = `${doorAngle}°`;
     }
 }
 
@@ -241,7 +250,7 @@ const apexMarker = new THREE.Mesh(new THREE.SphereGeometry(0.025, 32, 32), new T
 apexMarker.position.set(0, APEX_Y * s, 0);
 scene.add(apexMarker);
 
-const originMarker = new THREE.Mesh(new THREE.SphereGeometry(0.018, 24, 24), new THREE.MeshStandardMaterial({ color: 0xff6666, emissive: 0xff3333, emissiveIntensity: 0.3 }));
+const originMarker = new THREE.Mesh(new THREE.SphereGeometry(0.018, 24, 24), new THREE.MeshStandardMaterial({ color: 0xff6666 }));
 originMarker.position.set(0, 0, 0);
 scene.add(originMarker);
 
@@ -305,40 +314,55 @@ window.addEventListener('resize', () => {
 });
 
 let wireframe = false;
-document.getElementById('toggle-wireframe').addEventListener('click', () => {
-    wireframe = !wireframe;
-    scene.traverse(child => {
-        if (child.isMesh && child.material) {
-            if (Array.isArray(child.material)) child.material.forEach(m => m.wireframe = wireframe);
-            else child.material.wireframe = wireframe;
-        }
+const toggleWireframe = document.getElementById('toggle-wireframe');
+if (toggleWireframe) {
+    toggleWireframe.addEventListener('click', () => {
+        wireframe = !wireframe;
+        scene.traverse(child => {
+            if (child.isMesh && child.material) {
+                if (Array.isArray(child.material)) child.material.forEach(m => m.wireframe = wireframe);
+                else child.material.wireframe = wireframe;
+            }
+        });
     });
-});
+}
 
-document.getElementById('reset-view').addEventListener('click', () => {
-    camera.position.set(2.2, 1.8, 3.0);
-    camera.lookAt(0, 1.2, 0);
-    controls.target.set(0, 1.2, 0);
-    controls.update();
-});
+const resetView = document.getElementById('reset-view');
+if (resetView) {
+    resetView.addEventListener('click', () => {
+        camera.position.set(2.2, 1.8, 3.0);
+        camera.lookAt(0, 1.2, 0);
+        controls.target.set(0, 1.2, 0);
+        controls.update();
+    });
+}
 
 let gridVisible = true;
-document.getElementById('toggle-grid').addEventListener('click', () => {
-    gridVisible = !gridVisible;
-    gridHelper.visible = gridVisible;
-});
+const toggleGrid = document.getElementById('toggle-grid');
+if (toggleGrid) {
+    toggleGrid.addEventListener('click', () => {
+        gridVisible = !gridVisible;
+        gridHelper.visible = gridVisible;
+    });
+}
 
-document.getElementById('toggle-full-model').addEventListener('click', () => {
-    isFullModel = !isFullModel;
-    updateModel();
-});
+const toggleFullModel = document.getElementById('toggle-full-model');
+if (toggleFullModel) {
+    toggleFullModel.addEventListener('click', () => {
+        isFullModel = !isFullModel;
+        updateModel();
+    });
+}
 
-document.getElementById('toggle-door').addEventListener('click', () => {
-    if (isFullModel) {
-        const newAngle = doorAngle === 0 ? 90 : 0;
-        updateDoorAngle(newAngle);
-    }
-});
+const toggleDoor = document.getElementById('toggle-door');
+if (toggleDoor) {
+    toggleDoor.addEventListener('click', () => {
+        if (isFullModel) {
+            const newAngle = doorAngle === 0 ? 90 : 0;
+            updateDoorAngle(newAngle);
+        }
+    });
+}
 
 const doorSlider = document.getElementById('door-angle');
 if (doorSlider) {
