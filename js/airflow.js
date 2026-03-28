@@ -2,9 +2,6 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 
-// ============================================
-// DIMENSIONS (same as model.js)
-// ============================================
 const HEIGHT_F1 = 949;
 const BASE_WIDTH_F1 = 378;
 const F2_Y = 605.3;
@@ -23,9 +20,6 @@ const ANGLE_STEP_FULL = (Math.PI * 2) / FACES_F1_F4;
 const DOOR_START_INDEX = 2;
 const DOOR_END_INDEX = 4;
 
-// ============================================
-// SHELTER GEOMETRY FUNCTIONS
-// ============================================
 function rotateAroundY(vec, angle) {
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
@@ -109,9 +103,6 @@ function createFullModel() {
     return group;
 }
 
-// ============================================
-// BOUNDING BOX FOR COLLISION DETECTION
-// ============================================
 class ShelterCollisionDetector {
     constructor() {
         this.boundingBoxes = [];
@@ -126,7 +117,6 @@ class ShelterCollisionDetector {
             const angle = i * ANGLE_STEP_FULL;
             const verts = getVerticesAtAngle(angle);
             
-            // Base triangle bounding box
             const baseMinX = Math.min(origin.x, verts.B.x, verts.C.x);
             const baseMaxX = Math.max(origin.x, verts.B.x, verts.C.x);
             const baseMinY = Math.min(origin.y, verts.B.y, verts.C.y);
@@ -141,7 +131,6 @@ class ShelterCollisionDetector {
                 type: 'base'
             });
             
-            // Apex triangle bounding box
             const apexMinX = Math.min(verts.J.x, verts.K.x, apex.x);
             const apexMaxX = Math.max(verts.J.x, verts.K.x, apex.x);
             const apexMinY = Math.min(verts.J.y, verts.K.y, apex.y);
@@ -157,7 +146,6 @@ class ShelterCollisionDetector {
             });
             
             if (!(i >= DOOR_START_INDEX && i < DOOR_END_INDEX)) {
-                // Middle quadrilateral bounding box
                 const midMinX = Math.min(verts.B.x, verts.C.x, verts.F.x, verts.G.x);
                 const midMaxX = Math.max(verts.B.x, verts.C.x, verts.F.x, verts.G.x);
                 const midMinY = Math.min(verts.B.y, verts.C.y, verts.F.y, verts.G.y);
@@ -187,9 +175,6 @@ class ShelterCollisionDetector {
     }
 }
 
-// ============================================
-// AIRFLOW PARTICLE WITH COLLISION
-// ============================================
 class AirParticle {
     constructor(scene, startX, startY, startZ, collisionDetector) {
         this.scene = scene;
@@ -216,7 +201,6 @@ class AirParticle {
         this.mesh.position.copy(this.position);
         scene.add(this.mesh);
         
-        // Trail lines
         this.trailGeometry = new THREE.BufferGeometry();
         this.trailMaterial = new THREE.LineBasicMaterial({ color: 0x44aaff, transparent: true, opacity: 0.4 });
         this.trailLine = new THREE.Line(this.trailGeometry, this.trailMaterial);
@@ -225,7 +209,6 @@ class AirParticle {
     
     update() {
         if (this.collided) {
-            // Stay at collision point, gradually fade
             if (this.mesh.material.opacity > 0.01) {
                 this.mesh.material.opacity -= 0.01;
                 this.trailMaterial.opacity -= 0.01;
@@ -235,7 +218,6 @@ class AirParticle {
         
         const nextPosition = this.position.clone().add(this.velocity);
         
-        // Check collision with shelter
         if (this.collisionDetector.checkCollision(nextPosition)) {
             this.collided = true;
             this.collisionPoint = this.position.clone();
@@ -247,7 +229,6 @@ class AirParticle {
         
         this.position.copy(nextPosition);
         
-        // Add turbulence effect in wake region
         if (this.position.x > 0.3) {
             this.velocity.y += (Math.random() - 0.5) * 0.003;
             this.velocity.z += (Math.random() - 0.5) * 0.003;
@@ -255,31 +236,26 @@ class AirParticle {
             this.velocity.z *= 0.99;
         }
         
-        // Add slight vertical oscillation for laminar flow visualization
         if (this.position.x < 0.2) {
             this.velocity.y += Math.sin(Date.now() * 0.002 + this.position.x * 2) * 0.0005;
         }
         
         this.mesh.position.copy(this.position);
         
-        // Update trail
         this.trailPoints.unshift(this.position.clone());
         if (this.trailPoints.length > this.maxTrail) {
             this.trailPoints.pop();
         }
         
-        // Update trail line geometry
         const points = this.trailPoints.slice().reverse();
         const trailGeometry = new THREE.BufferGeometry().setFromPoints(points);
         this.trailLine.geometry.dispose();
         this.trailLine.geometry = trailGeometry;
         
-        // Color based on speed and turbulence
         const speedFactor = Math.min(1, this.velocity.length() / 0.04);
         const color = new THREE.Color().setHSL(0.55 - speedFactor * 0.3, 1, 0.5);
         this.mesh.material.color = color;
         
-        // Reset if goes too far
         if (this.position.x > 2.2) {
             this.reset();
         }
@@ -304,9 +280,6 @@ class AirParticle {
     }
 }
 
-// ============================================
-// STREAMLINES (Flow Lines)
-// ============================================
 class Streamline {
     constructor(scene, startX, startY, startZ, collisionDetector) {
         this.scene = scene;
@@ -343,13 +316,11 @@ class Streamline {
             point = nextPoint;
             steps++;
             
-            // Add flow separation effect at edges
             if (point.x > 0.2 && point.x < 0.6) {
                 this.velocity.y += Math.sin(point.x * 8) * 0.0008;
                 this.velocity.z += Math.cos(point.x * 6) * 0.0008;
             }
             
-            // Turbulent wake region
             if (point.x > 0.8) {
                 this.velocity.y += (Math.random() - 0.5) * 0.002;
                 this.velocity.z += (Math.random() - 0.5) * 0.002;
@@ -362,7 +333,6 @@ class Streamline {
         
         this.updateGeometry();
         
-        // Color based on flow regime
         const isTurbulent = this.points.some(p => p.x > 0.8);
         if (isTurbulent) {
             this.material.color.setHex(0xff8844);
@@ -388,9 +358,6 @@ class Streamline {
     }
 }
 
-// ============================================
-// INITIALIZE AIRFLOW SIMULATION
-// ============================================
 export function initAirflowSimulation(containerId) {
     const container = document.getElementById(containerId);
     if (!container) {
@@ -420,7 +387,6 @@ export function initAirflowSimulation(containerId) {
     controls.dampingFactor = 0.05;
     controls.target.set(0, 0.8, 0);
     
-    // Lights
     const ambient = new THREE.AmbientLight(0x404060);
     scene.add(ambient);
     const mainLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -433,16 +399,13 @@ export function initAirflowSimulation(containerId) {
     backLight.position.set(-0.5, 1, -1);
     scene.add(backLight);
     
-    // Grid
     const gridHelper = new THREE.GridHelper(4.5, 35, 0x88aaff, 0x335588);
     gridHelper.position.y = -0.05;
     scene.add(gridHelper);
     
-    // Create shelter model
     const shelterModel = createFullModel();
     scene.add(shelterModel);
     
-    // Add wireframe edges to shelter for better visibility
     shelterModel.traverse(child => {
         if (child.isMesh) {
             const edgesGeo = new THREE.EdgesGeometry(child.geometry);
@@ -452,7 +415,6 @@ export function initAirflowSimulation(containerId) {
         }
     });
     
-    // Add apex marker
     const apexMarker = new THREE.Mesh(
         new THREE.SphereGeometry(0.02, 24, 24),
         new THREE.MeshStandardMaterial({ color: 0xff88aa })
@@ -460,10 +422,8 @@ export function initAirflowSimulation(containerId) {
     apexMarker.position.set(0, APEX_Y * s, 0);
     scene.add(apexMarker);
     
-    // Collision detector
     const collisionDetector = new ShelterCollisionDetector();
     
-    // Particles
     const particles = [];
     const particleCount = 300;
     
@@ -475,7 +435,6 @@ export function initAirflowSimulation(containerId) {
         particles.push(particle);
     }
     
-    // Streamlines
     const streamlines = [];
     const streamlineCount = 24;
     
@@ -486,7 +445,6 @@ export function initAirflowSimulation(containerId) {
         streamlines.push(streamline);
     }
     
-    // Wind direction arrow
     const arrowHelper = new THREE.ArrowHelper(
         new THREE.Vector3(1, 0, 0),
         new THREE.Vector3(-1.5, 1.3, 0.9),
@@ -497,7 +455,6 @@ export function initAirflowSimulation(containerId) {
     );
     scene.add(arrowHelper);
     
-    // CSS2D Labels
     const css2DRenderer = new CSS2DRenderer();
     css2DRenderer.setSize(container.clientWidth, container.clientHeight);
     css2DRenderer.domElement.style.position = 'absolute';
@@ -542,7 +499,6 @@ export function initAirflowSimulation(containerId) {
     bcPanel.position.set(-1.6, 1.3, -1.2);
     scene.add(bcPanel);
     
-    // Flow legend
     const legendDiv = document.createElement('div');
     legendDiv.innerHTML = `
         <strong>Flow Visualization</strong><br>
@@ -568,15 +524,12 @@ export function initAirflowSimulation(containerId) {
     
     function animate() {
         animationId = requestAnimationFrame(animate);
-        
         frame++;
         
-        // Update particles every frame
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
         }
         
-        // Update streamlines occasionally to show flow patterns
         if (frame % 180 === 0) {
             for (let i = 0; i < streamlines.length; i++) {
                 const newStreamline = new Streamline(scene, -1.5, streamlines[i].startPoint.y, streamlines[i].startPoint.z, collisionDetector);
@@ -603,7 +556,6 @@ export function initAirflowSimulation(containerId) {
     
     window.addEventListener('resize', handleResize);
     
-    // Button controls
     const resetViewBtn = document.getElementById('reset-view');
     if (resetViewBtn) {
         resetViewBtn.addEventListener('click', () => {
