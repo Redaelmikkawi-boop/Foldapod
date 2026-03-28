@@ -138,7 +138,6 @@
     <div class="controls-panel">
         <button id="reset-view" class="btn-reset">Reset Camera</button>
         <button id="toggle-grid">Toggle Grid</button>
-        <button id="toggle-particles">Toggle Particles</button>
     </div>
     
     <div class="wind-speed">
@@ -159,9 +158,7 @@
         import { initAirflowSimulation } from '../js/airflow.js';
         
         let cleanup = null;
-        let particlesVisible = true;
         
-        // Initialize simulation
         setTimeout(() => {
             try {
                 cleanup = initAirflowSimulation('airflow-container');
@@ -170,27 +167,17 @@
             }
         }, 100);
         
-        // Reset view button
         document.getElementById('reset-view').addEventListener('click', () => {
-            // Re-initialize to reset camera
             if (cleanup) cleanup();
             setTimeout(() => {
                 cleanup = initAirflowSimulation('airflow-container');
             }, 100);
         });
         
-        // Toggle grid
         let gridVisible = true;
         document.getElementById('toggle-grid').addEventListener('click', () => {
             gridVisible = !gridVisible;
-            const grids = document.querySelectorAll('canvas');
-            // Note: Grid visibility is handled inside the simulation
-        });
-        
-        // Toggle particles (would require modification)
-        document.getElementById('toggle-particles').addEventListener('click', () => {
-            particlesVisible = !particlesVisible;
-            // This would need to be implemented in the simulation
+            const grids = document.querySelectorAll('.grid-helper');
         });
     </script>
 </body>
