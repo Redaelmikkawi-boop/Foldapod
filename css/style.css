@@ -1,47 +1,44 @@
 body {
+    margin: 0;
+    overflow: hidden;
     font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f5f5f5;
 }
 
-h1 {
-    color: #333;
-    text-align: center;
+#info {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 10;
+    font-size: 14px;
 }
 
 .controls {
-    background: white;
-    padding: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 10px 20px;
     border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    pointer-events: auto;
+    z-index: 10;
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.controls label {
-    display: flex;
-    align-items: center;
     gap: 10px;
-}
-
-#canvas-container {
-    width: 100%;
-    height: 600px;
-    background: #e0e0e0;
-    border-radius: 8px;
-    overflow: hidden;
 }
 
 button {
     padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
+    cursor: pointer;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
 }
 
 button:hover {
