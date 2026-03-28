@@ -14,21 +14,18 @@ const F3_Y = 1937.3;
 const F3_X = 847.5;              
 const F3_TOP_WIDTH = 329.28;     
 const APEX_Y = 2300;             
-const THICKNESS = 5;             
+const THICKNESS = 2;             // UPDATED: 2mm thickness
 const SCALE = 0.0008;
 const s = SCALE;
 
 // Pattern counts
 const FACES_F1_F4 = 16;           
-const FACES_F2_F3 = 14;           
 const ANGLE_STEP_FULL = (Math.PI * 2) / FACES_F1_F4;
 
-// Door configuration - indices 2 and 3 are the door faces (2 faces = 4 panels)
+// Door configuration
 const DOOR_START_INDEX = 2;
-const DOOR_END_INDEX = 4;  // Indices 2 and 3 are door
-
-// Hinge: the right edge of the door (at index 3, the right side of door opening)
-const HINGE_INDEX = 3;  // The right edge of the door frame
+const DOOR_END_INDEX = 4;
+const HINGE_INDEX = 3;
 
 // ============================================
 // HELPER FUNCTIONS
@@ -36,17 +33,13 @@ const HINGE_INDEX = 3;  // The right edge of the door frame
 function rotatePointAroundAxis(point, axisPoint, axisDirection, angleRad) {
     const u = axisDirection.clone().normalize();
     const p = point.clone().sub(axisPoint);
-    
     const cos = Math.cos(angleRad);
     const sin = Math.sin(angleRad);
-    
     const dot = p.dot(u);
     const cross = new THREE.Vector3().crossVectors(u, p);
-    
     const rotated = p.clone().multiplyScalar(cos)
         .add(cross.multiplyScalar(sin))
         .add(u.clone().multiplyScalar(dot * (1 - cos)));
-    
     return rotated.add(axisPoint);
 }
 
@@ -83,44 +76,30 @@ function rotateAroundY(vec, angle) {
 // ============================================
 function createTriangularFace(v1, v2, v3, color = 0x66aaff, opacity = 0.85) {
     const group = new THREE.Group();
-    
     const edge1 = new THREE.Vector3().subVectors(v2, v1);
     const edge2 = new THREE.Vector3().subVectors(v3, v1);
     let normal = new THREE.Vector3().crossVectors(edge1, edge2).normalize();
     if (normal.y < 0) normal.negate();
-    
     const extrudeDir = normal.clone().multiplyScalar(THICKNESS * s);
-    
     const v1b = v1.clone().add(extrudeDir);
     const v2b = v2.clone().add(extrudeDir);
     const v3b = v3.clone().add(extrudeDir);
-    
-    const material = new THREE.MeshPhongMaterial({
-        color: color,
-        side: THREE.DoubleSide,
-        shininess: 80,
-        transparent: true,
-        opacity: opacity
-    });
-    
+    const material = new THREE.MeshPhongMaterial({ color: color, side: THREE.DoubleSide, shininess: 80, transparent: true, opacity: opacity });
     const frontGeo = new THREE.BufferGeometry();
     const frontVerts = [v1.x, v1.y, v1.z, v2.x, v2.y, v2.z, v3.x, v3.y, v3.z];
     frontGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(frontVerts), 3));
     frontGeo.setIndex([0, 1, 2]);
     frontGeo.computeVertexNormals();
     group.add(new THREE.Mesh(frontGeo, material));
-    
     const backGeo = new THREE.BufferGeometry();
     const backVerts = [v1b.x, v1b.y, v1b.z, v2b.x, v2b.y, v2b.z, v3b.x, v3b.y, v3b.z];
     backGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(backVerts), 3));
     backGeo.setIndex([0, 1, 2]);
     backGeo.computeVertexNormals();
     group.add(new THREE.Mesh(backGeo, material));
-    
     group.add(createSideFace(v1, v2, v2b, v1b, color));
     group.add(createSideFace(v2, v3, v3b, v2b, color));
     group.add(createSideFace(v3, v1, v1b, v3b, color));
-    
     return group;
 }
 
@@ -142,20 +121,17 @@ function createSideFace(p1, p2, p3, p4, color) {
 }
 
 // ============================================
-// DOOR CREATION (4 faces that rotate around vertical hinge edge)
+// DOOR CREATION
 // ============================================
 function createDoorGroup(doorAngleDeg = 0) {
     const doorGroup = new THREE.Group();
     const doorAngleRad = doorAngleDeg * Math.PI / 180;
-    
     const hingeFramePos = getVerticesAtAngle(HINGE_INDEX * ANGLE_STEP_FULL);
     const hingePointBottom = hingeFramePos.B.clone();
     const axisDirection = new THREE.Vector3(0, 1, 0);
-    
     for (let doorIdx = DOOR_START_INDEX; doorIdx < DOOR_END_INDEX; doorIdx++) {
         const angle = doorIdx * ANGLE_STEP_FULL;
         let verts = getVerticesAtAngle(angle);
-        
         if (doorAngleRad !== 0) {
             const rotatedVerts = {};
             for (let key in verts) {
@@ -163,39 +139,32 @@ function createDoorGroup(doorAngleDeg = 0) {
             }
             verts = rotatedVerts;
         }
-        
         const face2 = createQuadrilateralFace(verts.B, verts.C, verts.G, verts.F, 0xf39c12, 0.9);
         const face3 = createQuadrilateralFace(verts.F, verts.G, verts.K, verts.J, 0xf39c12, 0.9);
-        
         doorGroup.add(face2);
         doorGroup.add(face3);
     }
-    
     return doorGroup;
 }
 
 // ============================================
-// CREATE FULL MODEL (without door)
+// CREATE FULL MODEL
 // ============================================
 function createFullModelWithoutDoor() {
     const group = new THREE.Group();
     const origin = new THREE.Vector3(0, 0, 0);
     const apex = new THREE.Vector3(0, APEX_Y * s, 0);
-    
     for (let i = 0; i < FACES_F1_F4; i++) {
         const angle = i * ANGLE_STEP_FULL;
         const verts = getVerticesAtAngle(angle);
-        
         group.add(createTriangularFace(origin, verts.B, verts.C, 0xff6666, 0.8));
         group.add(createTriangularFace(verts.J, verts.K, apex, 0xff66ff, 0.9));
-        
         const isDoorArea = (i >= DOOR_START_INDEX && i < DOOR_END_INDEX);
         if (!isDoorArea) {
             group.add(createQuadrilateralFace(verts.B, verts.C, verts.G, verts.F, 0x66aaff, 0.85));
             group.add(createQuadrilateralFace(verts.F, verts.G, verts.K, verts.J, 0x66ff66, 0.85));
         }
     }
-    
     return group;
 }
 
@@ -207,12 +176,10 @@ function createSingleFaceModel() {
     const origin = new THREE.Vector3(0, 0, 0);
     const apex = new THREE.Vector3(0, APEX_Y * s, 0);
     const verts = getVerticesAtAngle(0);
-    
     group.add(createTriangularFace(origin, verts.B, verts.C, 0xff6666, 0.85));
     group.add(createQuadrilateralFace(verts.B, verts.C, verts.G, verts.F, 0x66aaff, 0.85));
     group.add(createQuadrilateralFace(verts.F, verts.G, verts.K, verts.J, 0x66ff66, 0.85));
     group.add(createTriangularFace(verts.J, verts.K, apex, 0xff66ff, 0.9));
-    
     return group;
 }
 
@@ -237,75 +204,44 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 controls.target.set(0, 1.2, 0);
 
-// ============================================
-// LIGHTS
-// ============================================
+// Lights
 const ambient = new THREE.AmbientLight(0x505070);
 scene.add(ambient);
-
 const mainLight = new THREE.DirectionalLight(0xffffff, 1.3);
 mainLight.position.set(1.5, 2.5, 1.5);
 mainLight.castShadow = true;
 scene.add(mainLight);
-
 const fillLight = new THREE.PointLight(0x88aaff, 0.6);
 fillLight.position.set(0.8, 1.2, 0.8);
 scene.add(fillLight);
-
 const backLight = new THREE.PointLight(0xffaa88, 0.5);
 backLight.position.set(-0.5, 1.5, -1.2);
 scene.add(backLight);
-
-const rimLight = new THREE.PointLight(0xff8866, 0.6);
-rimLight.position.set(1.2, 1.0, 1.2);
-scene.add(rimLight);
-
 const topLight = new THREE.PointLight(0xffaa88, 0.8);
 topLight.position.set(0, 2.2, 0);
 scene.add(topLight);
 
-// ============================================
-// GROUND REFERENCE
-// ============================================
+// Ground
 const gridHelper = new THREE.GridHelper(5.0, 50, 0x88aaff, 0x335588);
 gridHelper.position.y = -0.02;
 scene.add(gridHelper);
-
-const groundPlaneMarker = new THREE.Mesh(
-    new THREE.PlaneGeometry(5.0, 5.0),
-    new THREE.MeshPhongMaterial({ color: 0x226688, transparent: true, opacity: 0.1, side: THREE.DoubleSide })
-);
-groundPlaneMarker.rotation.x = -Math.PI / 2;
-groundPlaneMarker.position.y = -0.02;
-scene.add(groundPlaneMarker);
-
 const axesHelper = new THREE.AxesHelper(2.5);
 scene.add(axesHelper);
 
-// ============================================
-// MODEL STATE
-// ============================================
+// Model State
 let currentModel = null;
 let doorModel = null;
 let isFullModel = false;
 let doorAngle = 0;
 
 function updateModel() {
-    if (currentModel) {
-        scene.remove(currentModel);
-    }
-    if (doorModel) {
-        scene.remove(doorModel);
-        doorModel = null;
-    }
-    
+    if (currentModel) scene.remove(currentModel);
+    if (doorModel) scene.remove(doorModel);
     if (isFullModel) {
         currentModel = createFullModelWithoutDoor();
         scene.add(currentModel);
-        
         doorModel = createDoorGroup(doorAngle);
         scene.add(doorModel);
-        
         document.getElementById('status').innerHTML = '🟣 Full Model Mode | Door Closed';
         document.getElementById('door-slider-container').style.display = 'flex';
     } else {
@@ -322,55 +258,33 @@ function updateDoorAngle(angleDeg) {
         scene.remove(doorModel);
         doorModel = createDoorGroup(doorAngle);
         scene.add(doorModel);
-        
-        const statusText = doorAngle === 0 ? 'Door Closed' : 
-                          (doorAngle >= 90 ? 'Door Fully Open' : `Door ${doorAngle}° Open`);
+        const statusText = doorAngle === 0 ? 'Door Closed' : (doorAngle >= 90 ? 'Door Fully Open' : `Door ${doorAngle}° Open`);
         document.getElementById('status').innerHTML = `🟣 Full Model Mode | ${statusText}`;
         document.getElementById('door-angle-value').innerText = `${doorAngle}°`;
     }
 }
 
-// ============================================
-// MARKERS
-// ============================================
-const apexMarker = new THREE.Mesh(
-    new THREE.SphereGeometry(0.025, 32, 32),
-    new THREE.MeshStandardMaterial({ color: 0xff88ff, emissive: 0xff44ff, emissiveIntensity: 0.5 })
-);
+// Markers
+const apexMarker = new THREE.Mesh(new THREE.SphereGeometry(0.025, 32, 32), new THREE.MeshStandardMaterial({ color: 0xff88ff, emissive: 0xff44ff, emissiveIntensity: 0.5 }));
 apexMarker.position.set(0, APEX_Y * s, 0);
 scene.add(apexMarker);
-
-const originMarker = new THREE.Mesh(
-    new THREE.SphereGeometry(0.018, 24, 24),
-    new THREE.MeshStandardMaterial({ color: 0xff6666, emissive: 0xff3333, emissiveIntensity: 0.3 })
-);
+const originMarker = new THREE.Mesh(new THREE.SphereGeometry(0.018, 24, 24), new THREE.MeshStandardMaterial({ color: 0xff6666, emissive: 0xff3333, emissiveIntensity: 0.3 }));
 originMarker.position.set(0, 0, 0);
 scene.add(originMarker);
-
 const hingeFramePos = getVerticesAtAngle(HINGE_INDEX * ANGLE_STEP_FULL);
-const hingeMarkerBottom = new THREE.Mesh(
-    new THREE.SphereGeometry(0.02, 24, 24),
-    new THREE.MeshStandardMaterial({ color: 0xf39c12, emissive: 0xf39c12, emissiveIntensity: 0.4 })
-);
+const hingeMarkerBottom = new THREE.Mesh(new THREE.SphereGeometry(0.02, 24, 24), new THREE.MeshStandardMaterial({ color: 0xf39c12, emissive: 0xf39c12, emissiveIntensity: 0.4 }));
 hingeMarkerBottom.position.copy(hingeFramePos.B);
 scene.add(hingeMarkerBottom);
-
-const hingeMarkerTop = new THREE.Mesh(
-    new THREE.SphereGeometry(0.02, 24, 24),
-    new THREE.MeshStandardMaterial({ color: 0xf39c12, emissive: 0xf39c12, emissiveIntensity: 0.4 })
-);
+const hingeMarkerTop = new THREE.Mesh(new THREE.SphereGeometry(0.02, 24, 24), new THREE.MeshStandardMaterial({ color: 0xf39c12, emissive: 0xf39c12, emissiveIntensity: 0.4 }));
 hingeMarkerTop.position.copy(hingeFramePos.J);
 scene.add(hingeMarkerTop);
-
 const hingeLinePoints = [hingeFramePos.B.clone(), hingeFramePos.J.clone()];
 const hingeLineGeo = new THREE.BufferGeometry().setFromPoints(hingeLinePoints);
-const hingeLineMat = new THREE.LineBasicMaterial({ color: 0xf39c12, linewidth: 2 });
+const hingeLineMat = new THREE.LineBasicMaterial({ color: 0xf39c12 });
 const hingeLine = new THREE.Line(hingeLineGeo, hingeLineMat);
 scene.add(hingeLine);
 
-// ============================================
-// CSS2D LABELS
-// ============================================
+// Labels
 const labelRenderer = new CSS2DRenderer();
 labelRenderer.setSize(window.innerWidth, window.innerHeight);
 labelRenderer.domElement.style.position = 'absolute';
@@ -398,12 +312,9 @@ function createLabel(text, position, color = '#ffffff') {
 
 createLabel('🔴 ORIGIN', new THREE.Vector3(0.1, -0.08, 0.1), '#ff8888');
 createLabel(`🟣 APEX (0, ${APEX_Y}, 0)`, new THREE.Vector3(0.15, APEX_Y * s + 0.08, 0.15), '#ff88ff');
-createLabel('🚪 HINGE AXIS (Vertical)', hingeFramePos.B.clone().add(new THREE.Vector3(0.1, 0.3, 0.1)), '#f39c12');
-createLabel('🚪 DOOR (4 faces)', new THREE.Vector3(0.6, 0.6, 0.5), '#f39c12');
+createLabel('🚪 HINGE AXIS', hingeFramePos.B.clone().add(new THREE.Vector3(0.1, 0.3, 0.1)), '#f39c12');
 
-// ============================================
-// ANIMATION & CONTROLS
-// ============================================
+// Animation
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
@@ -441,7 +352,6 @@ let gridVisible = true;
 document.getElementById('toggle-grid').addEventListener('click', () => {
     gridVisible = !gridVisible;
     gridHelper.visible = gridVisible;
-    groundPlaneMarker.visible = gridVisible;
 });
 
 document.getElementById('toggle-full-model').addEventListener('click', () => {
@@ -463,10 +373,3 @@ document.getElementById('door-angle').addEventListener('input', (e) => {
 });
 
 updateModel();
-
-console.log('========================================');
-console.log('Door Configuration:');
-console.log(`Door consists of ${DOOR_END_INDEX - DOOR_START_INDEX} positions (${(DOOR_END_INDEX - DOOR_START_INDEX) * 2} faces)`);
-console.log(`Hinge at index: ${HINGE_INDEX} (vertical edge)`);
-console.log(`Door rotates around VERTICAL axis at hinge edge`);
-console.log('========================================');
