@@ -2,34 +2,25 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 
-// ============================================
-// DIMENSIONS (all in mm)
-// ============================================
-const HEIGHT_F1 = 949;           
-const BASE_WIDTH_F1 = 378;       
-const F2_Y = 605.3;              
-const F2_X = 1210.5;             
-const F2_TOP_WIDTH = 473.85;     
-const F3_Y = 1937.3;             
-const F3_X = 847.5;              
-const F3_TOP_WIDTH = 329.28;     
-const APEX_Y = 2300;             
-const THICKNESS = 2;             // 2mm thickness
+const HEIGHT_F1 = 949;
+const BASE_WIDTH_F1 = 378;
+const F2_Y = 605.3;
+const F2_X = 1210.5;
+const F2_TOP_WIDTH = 473.85;
+const F3_Y = 1937.3;
+const F3_X = 847.5;
+const F3_TOP_WIDTH = 329.28;
+const APEX_Y = 2300;
+const THICKNESS = 2;
 const SCALE = 0.0008;
 const s = SCALE;
 
-// Pattern counts
-const FACES_F1_F4 = 16;           
+const FACES_F1_F4 = 16;
 const ANGLE_STEP_FULL = (Math.PI * 2) / FACES_F1_F4;
-
-// Door configuration
 const DOOR_START_INDEX = 2;
 const DOOR_END_INDEX = 4;
 const HINGE_INDEX = 3;
 
-// ============================================
-// HELPER FUNCTIONS
-// ============================================
 function rotatePointAroundAxis(point, axisPoint, axisDirection, angleRad) {
     const u = axisDirection.clone().normalize();
     const p = point.clone().sub(axisPoint);
@@ -71,9 +62,6 @@ function rotateAroundY(vec, angle) {
     );
 }
 
-// ============================================
-// FACE CREATION FUNCTIONS
-// ============================================
 function createTriangularFace(v1, v2, v3, color = 0x66aaff, opacity = 0.85) {
     const group = new THREE.Group();
     const edge1 = new THREE.Vector3().subVectors(v2, v1);
@@ -120,9 +108,6 @@ function createSideFace(p1, p2, p3, p4, color) {
     return new THREE.Mesh(geometry, material);
 }
 
-// ============================================
-// DOOR CREATION
-// ============================================
 function createDoorGroup(doorAngleDeg = 0) {
     const doorGroup = new THREE.Group();
     const doorAngleRad = doorAngleDeg * Math.PI / 180;
@@ -147,9 +132,6 @@ function createDoorGroup(doorAngleDeg = 0) {
     return doorGroup;
 }
 
-// ============================================
-// CREATE FULL MODEL
-// ============================================
 function createFullModelWithoutDoor() {
     const group = new THREE.Group();
     const origin = new THREE.Vector3(0, 0, 0);
@@ -168,9 +150,6 @@ function createFullModelWithoutDoor() {
     return group;
 }
 
-// ============================================
-// CREATE SINGLE FACE MODEL
-// ============================================
 function createSingleFaceModel() {
     const group = new THREE.Group();
     const origin = new THREE.Vector3(0, 0, 0);
@@ -183,9 +162,6 @@ function createSingleFaceModel() {
     return group;
 }
 
-// ============================================
-// SCENE SETUP
-// ============================================
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0a0a2a);
 scene.fog = new THREE.FogExp2(0x0a0a2a, 0.0015);
@@ -204,7 +180,6 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 controls.target.set(0, 1.2, 0);
 
-// Lights
 const ambient = new THREE.AmbientLight(0x505070);
 scene.add(ambient);
 const mainLight = new THREE.DirectionalLight(0xffffff, 1.3);
@@ -221,14 +196,12 @@ const topLight = new THREE.PointLight(0xffaa88, 0.8);
 topLight.position.set(0, 2.2, 0);
 scene.add(topLight);
 
-// Ground
 const gridHelper = new THREE.GridHelper(5.0, 50, 0x88aaff, 0x335588);
 gridHelper.position.y = -0.02;
 scene.add(gridHelper);
 const axesHelper = new THREE.AxesHelper(2.5);
 scene.add(axesHelper);
 
-// Model State
 let currentModel = null;
 let doorModel = null;
 let isFullModel = false;
@@ -264,27 +237,29 @@ function updateDoorAngle(angleDeg) {
     }
 }
 
-// Markers
 const apexMarker = new THREE.Mesh(new THREE.SphereGeometry(0.025, 32, 32), new THREE.MeshStandardMaterial({ color: 0xff88ff, emissive: 0xff44ff, emissiveIntensity: 0.5 }));
 apexMarker.position.set(0, APEX_Y * s, 0);
 scene.add(apexMarker);
+
 const originMarker = new THREE.Mesh(new THREE.SphereGeometry(0.018, 24, 24), new THREE.MeshStandardMaterial({ color: 0xff6666, emissive: 0xff3333, emissiveIntensity: 0.3 }));
 originMarker.position.set(0, 0, 0);
 scene.add(originMarker);
+
 const hingeFramePos = getVerticesAtAngle(HINGE_INDEX * ANGLE_STEP_FULL);
 const hingeMarkerBottom = new THREE.Mesh(new THREE.SphereGeometry(0.02, 24, 24), new THREE.MeshStandardMaterial({ color: 0xf39c12, emissive: 0xf39c12, emissiveIntensity: 0.4 }));
 hingeMarkerBottom.position.copy(hingeFramePos.B);
 scene.add(hingeMarkerBottom);
+
 const hingeMarkerTop = new THREE.Mesh(new THREE.SphereGeometry(0.02, 24, 24), new THREE.MeshStandardMaterial({ color: 0xf39c12, emissive: 0xf39c12, emissiveIntensity: 0.4 }));
 hingeMarkerTop.position.copy(hingeFramePos.J);
 scene.add(hingeMarkerTop);
+
 const hingeLinePoints = [hingeFramePos.B.clone(), hingeFramePos.J.clone()];
 const hingeLineGeo = new THREE.BufferGeometry().setFromPoints(hingeLinePoints);
 const hingeLineMat = new THREE.LineBasicMaterial({ color: 0xf39c12 });
 const hingeLine = new THREE.Line(hingeLineGeo, hingeLineMat);
 scene.add(hingeLine);
 
-// Labels
 const labelRenderer = new CSS2DRenderer();
 labelRenderer.setSize(window.innerWidth, window.innerHeight);
 labelRenderer.domElement.style.position = 'absolute';
@@ -314,7 +289,6 @@ createLabel('🔴 ORIGIN', new THREE.Vector3(0.1, -0.08, 0.1), '#ff8888');
 createLabel(`🟣 APEX (0, ${APEX_Y}, 0)`, new THREE.Vector3(0.15, APEX_Y * s + 0.08, 0.15), '#ff88ff');
 createLabel('🚪 HINGE AXIS', hingeFramePos.B.clone().add(new THREE.Vector3(0.1, 0.3, 0.1)), '#f39c12');
 
-// Animation
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
@@ -366,10 +340,13 @@ document.getElementById('toggle-door').addEventListener('click', () => {
     }
 });
 
-document.getElementById('door-angle').addEventListener('input', (e) => {
-    if (isFullModel) {
-        updateDoorAngle(parseInt(e.target.value));
-    }
-});
+const doorSlider = document.getElementById('door-angle');
+if (doorSlider) {
+    doorSlider.addEventListener('input', (e) => {
+        if (isFullModel) {
+            updateDoorAngle(parseInt(e.target.value));
+        }
+    });
+}
 
 updateModel();
