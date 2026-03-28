@@ -15,7 +15,7 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
             color: white;
             padding: 10px 20px;
             border-radius: 8px;
@@ -24,6 +24,7 @@
             z-index: 20;
             backdrop-filter: blur(5px);
             transition: all 0.2s;
+            font-size: 14px;
         }
         .back-button:hover {
             background: rgba(0,0,0,0.9);
@@ -65,26 +66,27 @@
             cursor: pointer;
             border: none;
             border-radius: 4px;
-            background-color: #007bff;
+            background-color: #2c3e66;
             color: white;
             font-weight: bold;
             transition: all 0.2s;
+            font-family: monospace;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #1e2a4a;
             transform: scale(1.02);
         }
         .btn-full {
-            background-color: #9b59b6;
+            background-color: #6c3483;
         }
         .btn-full:hover {
-            background-color: #8e44ad;
+            background-color: #512e5e;
         }
         .btn-door {
-            background-color: #e67e22;
+            background-color: #b45f2b;
         }
         .btn-door:hover {
-            background-color: #d35400;
+            background-color: #8e4b21;
         }
         .slider-container {
             position: absolute;
@@ -150,7 +152,7 @@
             }
             button {
                 padding: 6px 12px;
-                font-size: 12px;
+                font-size: 11px;
             }
             #info {
                 font-size: 9px;
@@ -166,26 +168,26 @@
 <body>
     <a href="index.html" class="back-button">← Back to Project Overview</a>
     <div id="info">
-        <strong>🏗️ Inflatable Origami Shelter with Animated Door</strong><br>
-        🔴 Face 1: 16 faces | 🔵 Face 2: 14 faces<br>
-        🟢 Face 3: 14 faces | 🟣 Face 4: 16 faces<br>
-        🚪 Door: 4 faces rotating around vertical hinge<br>
-        📦 Material: Corrugated Plastic (2mm thickness)
+        <strong>Inflatable Origami Shelter | 3D Interactive Model</strong><br>
+        Face 1 (Base): 16 faces | Face 2: 14 faces<br>
+        Face 3: 14 faces | Face 4 (Apex): 16 faces<br>
+        Door Assembly: 4 faces rotating about vertical hinge<br>
+        Material: Corrugated Polypropylene (2 mm)
     </div>
     <div class="controls">
-        <button id="toggle-wireframe">Toggle Wireframe</button>
-        <button id="reset-view">Reset View</button>
-        <button id="toggle-grid">Toggle Grid</button>
-        <button id="toggle-full-model" class="btn-full">Toggle Full Model</button>
-        <button id="toggle-door" class="btn-door">Open/Close Door</button>
+        <button id="toggle-wireframe">Wireframe</button>
+        <button id="reset-view">Reset Camera</button>
+        <button id="toggle-grid">Grid</button>
+        <button id="toggle-full-model" class="btn-full">Full Model</button>
+        <button id="toggle-door" class="btn-door">Door Control</button>
     </div>
     <div class="slider-container" id="door-slider-container">
-        <label>🚪 Door Angle: <span id="door-angle-value" class="angle-value">0°</span></label>
+        <label>Door Angle: <span id="door-angle-value" class="angle-value">0°</span></label>
         <input type="range" id="door-angle" min="0" max="90" step="1" value="0">
         <span style="font-size: 10px; text-align: center;">0° = Closed | 90° = Fully Open</span>
     </div>
-    <div class="coordinates">🚪 Door: 4 faces | Hinge on right vertical edge (orange line)</div>
-    <div class="status" id="status">🔴 Single Face Mode | Door Closed</div>
+    <div class="coordinates">Door Assembly | Hinge at Right Vertical Edge</div>
+    <div class="status" id="status">Single Face Mode | Door Closed</div>
 
     <script type="importmap">
         {
