@@ -9,11 +9,11 @@
 </head>
 <body>
     <!-- Header with Logo -->
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: rgba(10,10,42,0.95); position: fixed; top: 0; left: 0; right: 0; z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.1);">
-        <img src="../images/LAUlogo.png" alt="LAU Logo" style="height: 50px; width: auto;">
-        <div style="text-align: right;">
-            <div style="color: #ffaa66; font-size: 12px;">Lebanese American University</div>
-            <div style="color: #aaa; font-size: 10px;">School of Engineering</div>
+    <div class="header-with-logo">
+        <img src="../images/LAUlogo.png" alt="LAU Logo" class="logo">
+        <div class="university-info">
+            <div class="university-name">Lebanese American University</div>
+            <div class="university-sub">School of Engineering</div>
         </div>
     </div>
     
@@ -236,32 +236,35 @@
         </div>
     </section>
 
-    <!-- Team Section -->
+    <!-- Team Section (AT THE END) -->
     <section id="team" class="section">
         <h2 class="section-title">👥 Project Team</h2>
-        <p class="section-subtitle">Mechanical Engineering Final Year Project</p>
+        <p class="section-subtitle">Mechanical Engineering Final Year Project - Spring 2024</p>
         
         <div class="team-container">
-            <div class="team-member">
-                <img src="../images/Teamimage.png" alt="Team Member" class="team-avatar">
-                <div class="team-name">Your Name</div>
-                <div class="team-role">Project Lead & Design Engineer</div>
-            </div>
-            <div class="team-member">
-                <img src="../images/Teamimage.png" alt="Team Member" class="team-avatar">
-                <div class="team-name">Team Member 2</div>
-                <div class="team-role">Structural Analysis & Simulation</div>
-            </div>
-            <div class="team-member">
-                <img src="../images/Teamimage.png" alt="Team Member" class="team-avatar">
-                <div class="team-name">Team Member 3</div>
-                <div class="team-role">Fabrication & Testing</div>
-            </div>
+            <img src="../images/Teamimage.png" alt="Project Team" class="team-photo">
         </div>
         
-        <div style="text-align: center; margin-top: 30px;">
-            <p style="color: #aaa;">Supervised by: Dr. [Supervisor Name]</p>
-            <p style="color: #aaa;">Lebanese American University - School of Engineering</p>
+        <div class="team-info">
+            <div class="supervisor">
+                <div class="supervisor-name">Dr. Evan Fakhoury</div>
+                <div style="color: #aaa;">Project Supervisor</div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3 style="color: #88aaff; margin-bottom: 20px;">Team Members</h3>
+                <div class="members-list">
+                    <span class="member-name">Reda El Mikkawi</span>
+                    <span class="member-name">Ahmad Al Hajj</span>
+                    <span class="member-name">Khaled Abed Al Ghani</span>
+                    <span class="member-name">Ryan Azzi</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; color: #aaa; font-size: 0.9rem;">
+                <p>Lebanese American University | School of Engineering</p>
+                <p>Byblos, Lebanon</p>
+            </div>
         </div>
     </section>
 
