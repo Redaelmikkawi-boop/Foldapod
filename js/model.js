@@ -14,7 +14,7 @@ const F3_Y = 1937.3;
 const F3_X = 847.5;              
 const F3_TOP_WIDTH = 329.28;     
 const APEX_Y = 2300;             
-const THICKNESS = 2;             // UPDATED: 2mm thickness
+const THICKNESS = 2;             // 2mm thickness
 const SCALE = 0.0008;
 const s = SCALE;
 
