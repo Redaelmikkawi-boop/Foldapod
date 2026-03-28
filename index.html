@@ -22,7 +22,7 @@
         <a href="#mechanical">Mechanical Design</a>
         <a href="#kinematics">Kinematics</a>
         <a href="#materials">Materials</a>
-        <a href="airflow.html">CFD Analysis</a>
+        <a href="#prototyping">Prototyping</a>
         <a href="#team">Team</a>
         <a href="model.html" class="cta-nav">3D Model</a>
     </nav>
@@ -286,26 +286,120 @@
         </div>
     </section>
 
-    <section id="airflow" class="section">
-        <h2 class="section-title">Computational Fluid Dynamics Analysis</h2>
-        <p class="section-subtitle">External flow simulation around shelter structure</p>
+    <!-- PROTOTYPING SECTION - Manufacturing Process -->
+    <section id="prototyping" class="section">
+        <h2 class="section-title">Prototyping & Manufacturing Process</h2>
+        <p class="section-subtitle">From digital design to functional inflatable structure</p>
         
-        <div class="topic-card" style="text-align: center; padding: 40px; background: linear-gradient(135deg, rgba(100,100,200,0.1), rgba(155,89,182,0.1));">
-            <div style="font-size: 3rem; margin-bottom: 20px;">🌬️</div>
-            <h3 style="color: #88aaff; margin-bottom: 20px;">Interactive 3D Airflow Simulation</h3>
-            <p style="margin-bottom: 20px; color: #ccc;">Wind speed: 10 m/s from -X to +X direction | Turbulent flow with 400 particles</p>
-            <p style="margin-bottom: 30px; color: #aaa;">Blue: Laminar Flow | Orange: Turbulent Wake | Red: Impact/Separation Zone</p>
-            <a href="airflow.html" class="cta-button" style="display: inline-block;">Launch CFD Simulation →</a>
+        <!-- Step 1: Design Phase -->
+        <div style="margin-bottom: 60px;">
+            <h3 style="color: #ffaa66; margin-bottom: 20px; text-align: center;">Phase 1: Digital Design & CAD Modeling</h3>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-header"><h3>Base AutoCAD Design</h3></div>
+                    <div class="topic-content" style="text-align: center;">
+                        <img src="images/baseautocad.png" alt="Base AutoCAD Design" style="width: 100%; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.2);">
+                        <p style="color: #aaa; font-size: 12px; margin-top: 10px;">2D CAD layout of triangular faces with hinge patterns</p>
+                    </div>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-header"><h3>Faces AutoCAD Design</h3></div>
+                    <div class="topic-content" style="text-align: center;">
+                        <img src="images/facesautocad.png" alt="Faces AutoCAD Design" style="width: 100%; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.2);">
+                        <p style="color: #aaa; font-size: 12px; margin-top: 10px;">Individual face geometry with scoring lines for hinges</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <div class="boundary-conditions" style="margin-top: 30px;">
-            <div class="bc-card"><div class="bc-title">Inlet Velocity</div><div class="bc-value">10 m/s</div></div>
-            <div class="bc-card"><div class="bc-title">Outlet Pressure</div><div class="bc-value">101325 Pa</div></div>
-            <div class="bc-card"><div class="bc-title">Turbulence Intensity</div><div class="bc-value">5%</div></div>
-            <div class="bc-card"><div class="bc-title">Wall Shear Stress</div><div class="bc-value">0.5 Pa</div></div>
-            <div class="bc-card"><div class="bc-title">Air Density</div><div class="bc-value">1.225 kg/m³</div></div>
-            <div class="bc-card"><div class="bc-title">Reynolds Number</div><div class="bc-value">1.2×10⁶</div></div>
-            <div class="bc-card"><div class="bc-title">Flow Regime</div><div class="bc-value">Turbulent</div></div>
+        <!-- Step 2: Laser Cutting Phase -->
+        <div style="margin-bottom: 60px;">
+            <h3 style="color: #ffaa66; margin-bottom: 20px; text-align: center;">Phase 2: Laser Cutting & Material Preparation</h3>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-header"><h3>Base After Laser Cut</h3></div>
+                    <div class="topic-content" style="text-align: center;">
+                        <img src="images/baseafterlasercut.png" alt="Base After Laser Cut" style="width: 100%; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.2);">
+                        <p style="color: #aaa; font-size: 12px; margin-top: 10px;">Base panel after laser cutting with hinge scoring</p>
+                    </div>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-header"><h3>Faces After Laser Cut</h3></div>
+                    <div class="topic-content" style="text-align: center;">
+                        <img src="images/facesafterlasercut.png" alt="Faces After Laser Cut" style="width: 100%; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.2);">
+                        <p style="color: #aaa; font-size: 12px; margin-top: 10px;">Individual faces with precision-cut hinge lines</p>
+                    </div>
+                </div>
+            </div>
+            <div class="specs-grid" style="margin-top: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <div class="spec-item"><div class="spec-value">150 W</div><div class="spec-label">Laser Power</div></div>
+                <div class="spec-item"><div class="spec-value">75%</div><div class="spec-label">Material Removal (Hinge)</div></div>
+                <div class="spec-item"><div class="spec-value">0.5 mm</div><div class="spec-label">Remaining Hinge Thickness</div></div>
+            </div>
+        </div>
+        
+        <!-- Step 3: Assembly Phase -->
+        <div style="margin-bottom: 60px;">
+            <h3 style="color: #ffaa66; margin-bottom: 20px; text-align: center;">Phase 3: Assembly & Structural Integration</h3>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-header"><h3>Assembled Structure</h3></div>
+                    <div class="topic-content" style="text-align: center;">
+                        <img src="images/assembled.png" alt="Assembled Structure" style="width: 100%; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.2);">
+                        <p style="color: #aaa; font-size: 12px; margin-top: 10px;">Complete assembly of all triangular faces with adhesive tape sealing</p>
+                    </div>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-header"><h3>Assembly Details</h3></div>
+                    <div class="topic-content">
+                        <ul style="margin-left: 20px; color: #ccc;">
+                            <li>Tab-and-pocket connection system</li>
+                            <li>Adhesive tape for airtight sealing</li>
+                            <li>Hinge alignment verification</li>
+                            <li>Structural integrity inspection</li>
+                            <li>Door mechanism integration</li>
+                        </ul>
+                        <div class="spec-item" style="margin-top: 15px;">
+                            <div class="spec-value">16 + 14 + 14 + 16</div>
+                            <div class="spec-label">Face Count Configuration</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 4: Pneumatic System -->
+        <div style="margin-bottom: 40px;">
+            <h3 style="color: #ffaa66; margin-bottom: 20px; text-align: center;">Phase 4: Pneumatic System Integration</h3>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-header"><h3>Pneumatic System Setup</h3></div>
+                    <div class="topic-content" style="text-align: center;">
+                        <img src="images/pneumaticsystem.png" alt="Pneumatic System" style="width: 100%; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.2);">
+                        <p style="color: #aaa; font-size: 12px; margin-top: 10px;">Air supply system with pressure regulator and control valves</p>
+                    </div>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-header"><h3>System Specifications</h3></div>
+                    <div class="topic-content">
+                        <div class="param-item"><span class="param-name">Air Source</span> - Compressor / Hand Pump</div>
+                        <div class="param-item"><span class="param-name">Operating Pressure</span> - 1.2 MPa</div>
+                        <div class="param-item"><span class="param-name">Flow Rate</span> - 10 L/min</div>
+                        <div class="param-item"><span class="param-name">Connection Type</span> - Quick-connect fittings</div>
+                        <div class="param-item"><span class="param-name">Control</span> - Manual valve with pressure gauge</div>
+                        <div class="param-item"><span class="param-name">Sealing Method</span> - Silicone coating / Adhesive tape</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary Timeline -->
+        <div class="specs-grid" style="margin-top: 40px;">
+            <div class="spec-item"><div class="spec-value">Step 1</div><div class="spec-label">CAD Design (2-3 days)</div></div>
+            <div class="spec-item"><div class="spec-value">Step 2</div><div class="spec-label">Laser Cutting (4-6 hours)</div></div>
+            <div class="spec-item"><div class="spec-value">Step 3</div><div class="spec-label">Assembly (1-2 days)</div></div>
+            <div class="spec-item"><div class="spec-value">Step 4</div><div class="spec-label">Pneumatic Integration (4 hours)</div></div>
+            <div class="spec-item"><div class="spec-value">Step 5</div><div class="spec-label">Testing & Validation (2 days)</div></div>
         </div>
     </section>
 
