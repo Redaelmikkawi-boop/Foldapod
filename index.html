@@ -3,31 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Origami FYP - Multistable Inflatable Structures</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Origami FYP - Triangular Face Extrusion</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            pointer-events: auto;
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Multistable Inflatable Origami Structures</h1>
-    <p>Interactive 3D simulator for mechanical engineering analysis</p>
-    
-    <div class="controls">
-        <label>α (alpha): <input type="range" id="alpha" min="10" max="80" step="1" value="45"></label>
-        <span id="alpha-value">45°</span>
-        
-        <label>β (beta): <input type="range" id="beta" min="10" max="80" step="1" value="32"></label>
-        <span id="beta-value">32°</span>
-        
-        <label>Number of folds (n): <input type="range" id="n" min="2" max="8" step="1" value="4"></label>
-        <span id="n-value">4</span>
-        
-        <label>Deployment height (w_A): <input type="range" id="wA" min="0" max="100" step="1" value="0"></label>
-        <span id="wA-value">0</span>
-        
-        <button id="toggle-state">Toggle to Deployed State</button>
+    <div id="info">
+        <h2>Triangular Face (Single Panel)</h2>
+        <p>Height: 949 mm | Base: 378 mm | Slant: 605.3 mm | Thickness: 5 mm</p>
     </div>
-    
-    <div id="canvas-container"></div>
-    
+    <div class="controls">
+        <button id="toggle-wireframe">Toggle Wireframe</button>
+        <button id="reset-view">Reset View</button>
+    </div>
+
     <script type="importmap">
         {
             "imports": {
