@@ -4,288 +4,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inflatable Origami Structures | FYP Project</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Landing page specific styles */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(100,100,200,0.1) 0%, transparent 70%);
-            animation: rotate 60s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 40px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .header h1 {
-            font-size: 3.5rem;
-            background: linear-gradient(135deg, #fff, #88aaff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            color: #aaa;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-        
-        .feature-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: #88aaff;
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #88aaff;
-        }
-        
-        .feature-card p {
-            color: #bbb;
-            line-height: 1.6;
-        }
-        
-        .specs {
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 60px;
-            text-align: center;
-        }
-        
-        .specs h2 {
-            margin-bottom: 30px;
-            color: #ffaa66;
-        }
-        
-        .spec-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        
-        .spec-item {
-            padding: 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-        }
-        
-        .spec-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ffaa66;
-        }
-        
-        .spec-label {
-            font-size: 0.85rem;
-            color: #aaa;
-            margin-top: 8px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            color: white;
-            padding: 16px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin: 20px auto;
-        }
-        
-        .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(155,89,182,0.4);
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #666;
-        }
-        
-        .equation {
-            font-family: monospace;
-            background: rgba(0,0,0,0.5);
-            padding: 20px;
-            border-radius: 12px;
-            overflow-x: auto;
-            font-size: 0.85rem;
-            margin: 20px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .container { padding: 30px 20px; }
-            .header h1 { font-size: 2rem; }
-            .features { grid-template-columns: 1fr; }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
-    <div class="hero">
-        <div class="container">
-            <div class="header">
-                <div class="badge">🎓 Mechanical Engineering Final Year Project</div>
-                <h1>Multistable Inflatable Origami Structures</h1>
-                <p>A novel approach to deployable architecture using geometric frustration and fluidic actuation</p>
-                <a href="model.html" class="cta-button">🚀 Launch Interactive 3D Model →</a>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#origami-calc">Origami Calculations</a>
+        <a href="#mechanical-calc">Mechanical Design</a>
+        <a href="#kinematics">Kinematics</a>
+        <a href="#materials">Materials</a>
+        <a href="model.html" class="cta-nav">🎮 3D Model</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">🎓 Mechanical Engineering Final Year Project</div>
+            <h1>Multistable Inflatable Origami Structures</h1>
+            <p>A novel approach to deployable architecture using geometric frustration and fluidic actuation</p>
+            <a href="model.html" class="cta-button">🚀 Launch Interactive 3D Model →</a>
+        </div>
+    </section>
+
+    <!-- About Section - Why This Shape -->
+    <section id="about" class="section">
+        <h2 class="section-title">📖 About This Project</h2>
+        <div class="two-column">
+            <div>
+                <h3 style="color: #ffaa66; margin-bottom: 20px;">Why This Shape?</h3>
+                <p>The shelter design is inspired by the <strong>inscribed angle theorem</strong> from geometry, which allows triangular building blocks to have two compatible states: flat and deployed. This creates a structure that can:</p>
+                <ul style="margin-top: 20px; margin-left: 20px; color: #ccc;">
+                    <li>✅ Fold flat for transport (0.5m height)</li>
+                    <li>✅ Deploy to full height (2.3m) using air pressure</li>
+                    <li>✅ Remain rigid without continuous power (bistability)</li>
+                    <li>✅ Provide a functional door for access</li>
+                </ul>
+                <p style="margin-top: 20px;">The <strong>16-face circular pattern</strong> was chosen for structural symmetry, while <strong>2 missing faces</strong> create a door opening without compromising stability.</p>
             </div>
-            
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">📐</div>
-                    <h3>Kinematic Design</h3>
-                    <p>Based on the inscribed angle theorem, our triangular building blocks achieve two stable states through geometric incompatibility.</p>
-                    <div class="equation">
-                        V = \frac{w_A \|AB\|^2}{6} \frac{\sin \alpha}{\sin(\alpha+\beta)} \sqrt{\sin^2 \beta - \frac{w_A^2}{\|AB\|^2}}
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💪</div>
-                    <h3>Structural Integrity</h3>
-                    <p>Stiff faces and compliant hinges minimize bending energy while allowing deployment. Von Mises stress analysis ensures factor of safety > 2.</p>
-                    <div class="equation">
-                        \text{FOS} = \frac{\sigma_{\text{yield}}}{\sigma_{\text{max von Mises}}} \geq 2.0
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚪</div>
-                    <h3>Functional Door Mechanism</h3>
-                    <p>4 faces form a door that rotates 90° around a vertical hinge axis, demonstrating real-world functionality for emergency shelters.</p>
-                    <div class="equation">
-                        \theta_{\text{door}} \in [0°, 90°] \quad \text{rotate around vertical hinge}
-                    </div>
-                </div>
-            </div>
-            
-            <div class="specs">
-                <h2>📏 Geometric Specifications</h2>
-                <div class="spec-grid">
-                    <div class="spec-item">
-                        <div class="spec-value">949 mm</div>
-                        <div class="spec-label">Base Triangle Height</div>
-                    </div>
-                    <div class="spec-item">
-                        <div class="spec-value">378 mm</div>
-                        <div class="spec-label">Base Width</div>
-                    </div>
-                    <div class="spec-item">
-                        <div class="spec-value">605.3 mm</div>
-                        <div class="spec-label">Slant Edge Length</div>
-                    </div>
-                    <div class="spec-item">
-                        <div class="spec-value">2300 mm</div>
-                        <div class="spec-label">Apex Height</div>
-                    </div>
-                    <div class="spec-item">
-                        <div class="spec-value">16 / 14 / 14 / 16</div>
-                        <div class="spec-label">Face Count (F1/F2/F3/F4)</div>
-                    </div>
-                    <div class="spec-item">
-                        <div class="spec-value">5 mm</div>
-                        <div class="spec-label">Panel Thickness</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">⚙️</div>
-                    <h3>Energy Analysis</h3>
-                    <p>The structure exhibits bistability with an energy barrier that locks it in the deployed state after inflation.</p>
-                    <div class="equation">
-                        \mathcal{E} = \int p \, dV \quad \text{with negative pressure region indicating bistability}
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Circular Pattern</h3>
-                    <p>16 faces arranged around Y-axis with a 30° door opening (2 missing faces) for access.</p>
-                    <div class="equation">
-                        \theta_{\text{step}} = \frac{360°}{16} = 22.5° \quad \text{Door gap: } 51.4°
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Material Selection</h3>
-                    <p>Corrugated plastic sheets (4mm) for meter-scale prototypes with scored hinges for compliance.</p>
-                    <div class="equation">
-                        E_{\text{corrugated}} \approx 1.5 \text{ GPa} \quad \text{FOS} = 3.2
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="model.html" class="cta-button">🎮 Explore the 3D Interactive Model →</a>
-            </div>
-            
-            <div class="footer">
-                <p>© 2024 Mechanical Engineering FYP | Based on research by Melancon et al. "Multistable inflatable origami structures at the meter-scale"</p>
-                <p>Technologies: Three.js | HTML5/CSS3 | JavaScript | Rodrigues Rotation Formula</p>
+            <div>
+                <h3 style="color: #ffaa66; margin-bottom: 20px;">Design Inspiration</h3>
+                <p>Based on research by Melancon et al. (Harvard University), this project scales the concept to meter-scale emergency shelters. Key innovations:</p>
+                <ul style="margin-top: 20px; margin-left: 20px; color: #ccc;">
+                    <li>🏕️ Rapid deployment for disaster relief</li>
+                    <li>🚚 Flat-pack transport (fits on a truck)</li>
+                    <li>💨 Inflation with any air pump (no complex machinery)</li>
+                    <li>🔒 Self-locking due to geometric incompatibility</li>
+                </ul>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Origami Calculations Section -->
+    <section id="origami-calc" class="section">
+        <h2 class="section-title">📐 Origami Geometry Calculations</h2>
+        <p class="section-subtitle">Based on the inscribed angle theorem and geometric incompatibility</p>
+        
+        <div class="two-column">
+            <div>
+                <h3>Volume of a Triangular Building Block</h3>
+                <div class="equation-box">
+                    <p class="equation">\[ V_{ABC} = \frac{w_A \|AB\|^2}{6} \frac{\sin \alpha}{\sin(\alpha+\beta)} \sqrt{\sin^2 \beta - \frac{w_A^2}{\|AB\|^2}} \]</p>
+                </div>
+                <div class="param-list">
+                    <div class="param-item"><span class="param-name">α (alpha)</span><div class="param-desc">Internal angle at vertex A (degrees)</div></div>
+                    <div class="param-item"><span class="param-name">β (beta)</span><div class="param-desc">Internal angle at vertex B (degrees)</div></div>
+                    <div class="param-item"><span class="param-name">||AB||</span><div class="param-desc">Length of edge AB (mm)</div></div>
+                    <div class="param-item"><span class="param-name">w_A</span><div class="param-desc">Deployment height of vertex A (mm)</div></div>
+                </div>
+            </div>
+            <div>
+                <h3>Compatible Deployment Height</h3>
+                <div class="equation-box">
+                    <p class="equation">\[ w_A^c = \|AB\| \sqrt{1 - \frac{\cos^2 \beta}{\sin^2(\alpha + \beta)}} \]</p>
+                </div>
+                <h3 style="margin-top: 20px;">Maximum Volume</h3>
+                <div class="equation-box">
+                    <p class="equation">\[ V_{ABC}^{max} = \frac{\|AB\|^3 \sin \alpha \sin^2 \beta}{12 \sin(\alpha + \beta)} \]</p>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <h3>Geometric Incompatibility</h3>
+            <div class="equation-box">
+                <p class="equation">\[ \Delta_{ABC} = \|AC_{xy}\| \cdot \sin(\alpha_{xy} - \alpha) \]</p>
+            </div>
+            <p style="color: #aaa; margin-top: 10px;">This metric quantifies the geometric frustration during deployment. When Δ = 0, the structure is at a stable state. The maximum Δ creates the energy barrier that makes the structure bistable.</p>
+        </div>
+        
+        <div>
+            <h3>Inflation Constraint</h3>
+            <div class="equation-box">
+                <p class="equation">\[ \log h = \log \left( \frac{\Gamma^{V^{max}}}{\Gamma^c} \right) \geq 0 \]</p>
+            </div>
+            <p style="color: #aaa;">This ensures the structure reaches its expanded stable state before maximum volume during inflation.</p>
+        </div>
+        
+        <div class="specs-grid">
+            <div class="spec-item"><div class="spec-value">949 mm</div><div class="spec-label">Height (Face 1)</div></div>
+            <div class="spec-item"><div class="spec-value">378 mm</div><div class="spec-label">Base Width</div></div>
+            <div class="spec-item"><div class="spec-value">605.3 mm</div><div class="spec-label">Slant Edge</div></div>
+            <div class="spec-item"><div class="spec-value">2300 mm</div><div class="spec-label">Apex Height</div></div>
+        </div>
+    </section>
+
+    <!-- Mechanical Engineering Design Section -->
+    <section id="mechanical-calc" class="section">
+        <h2 class="section-title">⚙️ Mechanical Engineering Design</h2>
+        <p class="section-subtitle">Stress analysis, factor of safety, and material selection</p>
+        
+        <div class="two-column">
+            <div>
+                <h3>Factor of Safety (FOS)</h3>
+                <div class="equation-box">
+                    <p class="equation">\[ \text{FOS} = \frac{\sigma_{\text{yield}}}{\sigma_{\text{max von Mises}}} \]</p>
+                </div>
+                <p style="color: #aaa;">For our corrugated plastic structure, with estimated maximum stress of 3.5 MPa and yield strength of 12 MPa:</p>
+                <div class="equation-box">
+                    <p class="equation">\[ \text{FOS} = \frac{12 \text{ MPa}}{3.5 \text{ MPa}} = 3.43 \]</p>
+                </div>
+                <p style="color: #88ff88;">✓ FOS > 2.0 → Safe design</p>
+            </div>
+            <div>
+                <h3>Von Mises Stress (Bending)</h3>
+                <div class="equation-box">
+                    <p class="equation">\[ \sigma_{\text{von Mises}} = \frac{M \cdot c}{I} \]</p>
+                </div>
+                <p style="color: #aaa;">Where:</p>
+                <ul style="color: #aaa; margin-left: 20px;">
+                    <li>M = Bending moment (N·mm)</li>
+                    <li>c = Distance to neutral axis (thickness/2)</li>
+                    <li>I = Moment of inertia = (b·h³)/12</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div>
+            <h3>Energy Analysis (Bistability)</h3>
+            <div class="equation-box">
+                <p class="equation">\[ \mathcal{E} = \int p \, dV \]</p>
+            </div>
+            <p style="color: #aaa;">The pressure-volume curve shows a negative pressure region, indicating bistability. The energy landscape has two local minima corresponding to the flat and deployed states.</p>
+        </div>
+    </section>
+
+    <!-- Kinematics Study Section -->
+    <section id="kinematics" class="section">
+        <h2 class="section-title">🔄 Kinematics Study</h2>
+        <p class="section-subtitle">Motion analysis of the deployable origami structure</p>
+        
+        <div class="two-column">
+            <div>
+                <h3>Deployment Angle (Dihedral Angle)</h3>
+                <div class="equation-box">
+                    <p class="equation">\[ \gamma = \arccos \left( \sqrt{1 - \frac{w_A^2}{\|AB\|^2 \sin^2 \beta}} \right) \]</p>
+                </div>
+                <p style="color: #aaa;">This angle describes the rotation between the flat and deployed states. At γ = 0°, the structure is flat. At γ = 90°, it is fully deployed.</p>
+            </div>
+            <div>
+                <h3>Vertex Position Functions</h3>
+                <div class="equation-box">
+                    <p class="equation">\[ \text{Vertex A: } (0, 0, 0) \]</p>
+                    <p class="equation">\[ \text{Vertex B: } (L \cos(\alpha+\beta), 0, -L \sin(\alpha+\beta)) \]</p>
+                    <p class="equation">\[ \text{Vertex C: } (L \cos \beta, 0, L \sin \beta) \]</p>
+                    <p class="equation">\[ \text{Deployed A': } (0, w_A, 0) \]</p>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <h3>Degrees of Freedom</h3>
+            <p style="color: #aaa;">The structure has <strong>1 degree of freedom</strong> during deployment (w_A). All other vertices are constrained by the geometry of the triangular faces. When assembled in a circular pattern, the structure maintains symmetry around the Y-axis.</p>
+        </div>
+        
+        <div class="specs-grid">
+            <div class="spec-item"><div class="spec-value">1 DOF</div><div class="spec-label">Deployment Degree of Freedom</div></div>
+            <div class="spec-item"><div class="spec-value">0° → 90°</div><div class="spec-label">Deployment Angle Range</div></div>
+            <div class="spec-item"><div class="spec-value">0 → 2300 mm</div><div class="spec-label">Height Range</div></div>
+        </div>
+    </section>
+
+    <!-- Materials Section -->
+    <section id="materials" class="section">
+        <h2 class="section-title">🧪 Material Selection</h2>
+        <p class="section-subtitle">Corrugated Plastic Sheets - Properties and Justification</p>
+        
+        <div class="two-column">
+            <div>
+                <h3>Material Properties</h3>
+                <table class="material-table">
+                    <tr><th>Property</th><th>Value</th></tr>
+                    <tr><td>Material</td><td>Polypropylene Corrugated Sheet</td></tr>
+                    <tr><td>Thickness</td><td>4 mm (meter-scale) / 5 mm (prototype)</td></tr>
+                    <tr><td>Yield Strength</td><td>12 MPa</td></tr>
+                    <tr><td>Elastic Modulus</td><td>1.5 GPa</td></tr>
+                    <tr><td>Density</td><td>0.9 g/cm³</td></tr>
+                    <tr><td>Operating Temperature</td><td>-20°C to 80°C</td></tr>
+                </table>
+            </div>
+            <div>
+                <h3>Why Corrugated Plastic?</h3>
+                <ul style="color: #ccc; margin-left: 20px;">
+                    <li>✅ High stiffness-to-weight ratio</li>
+                    <li>✅ Available in large formats (8ft x 4ft)</li>
+                    <li>✅ Can be scored to create compliant hinges</li>
+                    <li>✅ Weather resistant for outdoor shelters</li>
+                    <li>✅ Cost-effective for prototyping</li>
+                    <li>✅ Recyclable and lightweight</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div>
+            <h3>Hinge Design</h3>
+            <p style="color: #aaa;">Hinges are created by <strong>scoring</strong> (removing 75% of material thickness) along fold lines. For higher stress areas, <strong>engraving</strong> creates additional compliance to accommodate geometric frustration.</p>
+            <div class="equation-box">
+                <p class="equation">\[ \text{Hinge Stiffness} \propto \frac{E \cdot t_{\text{remaining}}^3}{12} \]</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 Mechanical Engineering Final Year Project | Based on research by Melancon et al. "Multistable inflatable origami structures at the meter-scale"</p>
+        <p>Technologies: Three.js | HTML5/CSS3 | JavaScript | MathJax | Rodrigues Rotation Formula</p>
+    </footer>
+
+    <script src="../js/calculations.js"></script>
 </body>
 </html>
