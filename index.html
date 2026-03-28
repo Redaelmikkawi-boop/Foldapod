@@ -216,9 +216,11 @@
         </div>
     </section>
 
+    <!-- MATERIALS SECTION WITH CORRUGATED SHEET IMAGE -->
     <section id="materials" class="section">
         <h2 class="section-title">Material Selection</h2>
         <p class="section-subtitle">Corrugated polypropylene sheets - 2 mm thickness</p>
+        
         <div class="topics-grid">
             <div class="topic-card">
                 <div class="topic-header"><h3>Material Properties</h3></div>
@@ -228,13 +230,57 @@
                     <div class="param-item"><span class="param-name">Yield Strength</span> - 12 MPa</div>
                     <div class="param-item"><span class="param-name">Elastic Modulus</span> - 1.5 GPa</div>
                     <div class="param-item"><span class="param-name">Density</span> - 0.9 g/cm³</div>
+                    <div class="param-item"><span class="param-name">Operating Temperature</span> - -20°C to 80°C</div>
                 </div>
             </div>
+            
+            <div class="topic-card">
+                <div class="topic-header"><h3>Corrugated Sheet Structure</h3></div>
+                <div class="topic-content" style="text-align: center;">
+                    <img src="images/corrugatedsheet.png" alt="Corrugated Plastic Sheet Structure" style="width: 100%; max-width: 280px; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.2);">
+                    <p style="color: #aaa; font-size: 12px; margin-top: 10px;">Cross-section of corrugated polypropylene sheet showing fluted structure</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-header"><h3>Why Corrugated Polypropylene?</h3></div>
+                <div class="topic-content">
+                    <ul style="margin-left: 20px; color: #ccc;">
+                        <li>High stiffness-to-weight ratio</li>
+                        <li>Available in large formats (8 ft × 4 ft)</li>
+                        <li>Can be scored to create compliant hinges</li>
+                        <li>Weather resistant for outdoor applications</li>
+                        <li>Cost-effective for prototyping and production</li>
+                        <li>Recyclable and lightweight</li>
+                        <li>Excellent impact resistance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="topics-grid" style="margin-top: 20px;">
             <div class="topic-card">
                 <div class="topic-header"><h3>Hinge Design Methodology</h3></div>
                 <div class="topic-content">
                     <div class="equation-box">\[ \text{Hinge Stiffness} \propto \frac{E \cdot t_{\text{remaining}}^3}{12} \]</div>
                     <p>Scoring removes 75% of material thickness, resulting in a remaining hinge thickness of 0.5 mm, providing adequate flexibility while maintaining structural integrity.</p>
+                    <div class="spec-item" style="margin-top: 15px;">
+                        <div class="spec-value">0.5 mm</div>
+                        <div class="spec-label">Remaining Hinge Thickness</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-header"><h3>Fabrication Method</h3></div>
+                <div class="topic-content">
+                    <ul style="margin-left: 20px; color: #ccc;">
+                        <li>Digital cutting system for precise geometry</li>
+                        <li>Scoring operation creates living hinges</li>
+                        <li>Engraving for additional compliance where needed</li>
+                        <li>Adhesive tape sealing for airtight cavity</li>
+                        <li>Modular assembly for rapid prototyping</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -247,7 +293,7 @@
         <div class="topic-card" style="text-align: center; padding: 40px; background: linear-gradient(135deg, rgba(100,100,200,0.1), rgba(155,89,182,0.1));">
             <div style="font-size: 3rem; margin-bottom: 20px;">🌬️</div>
             <h3 style="color: #88aaff; margin-bottom: 20px;">Interactive 3D Airflow Simulation</h3>
-            <p style="margin-bottom: 20px; color: #ccc;">Wind speed: 10 m/s from -X to +X direction | Turbulent flow with 300 particles</p>
+            <p style="margin-bottom: 20px; color: #ccc;">Wind speed: 10 m/s from -X to +X direction | Turbulent flow with 400 particles</p>
             <p style="margin-bottom: 30px; color: #aaa;">Blue: Laminar Flow | Orange: Turbulent Wake | Red: Impact/Separation Zone</p>
             <a href="airflow.html" class="cta-button" style="display: inline-block;">Launch CFD Simulation →</a>
         </div>
