@@ -12,7 +12,6 @@
 // ============================================
 // 1. VOLUME CALCULATION
 // ============================================
-// V_ABC = (w_A * ||AB||^2 / 6) * (sin α / sin(α+β)) * sqrt(sin²β - w_A²/||AB||²)
 function calculateVolume(AB, wA, alphaDeg, betaDeg) {
     const alphaRad = alphaDeg * Math.PI / 180;
     const betaRad = betaDeg * Math.PI / 180;
@@ -27,7 +26,6 @@ function calculateVolume(AB, wA, alphaDeg, betaDeg) {
 // ============================================
 // 2. COMPATIBLE DEPLOYMENT HEIGHT
 // ============================================
-// w_A^c = ||AB|| * sqrt(1 - cos²β / sin²(α+β))
 function calculateCompatibleHeight(AB, alphaDeg, betaDeg) {
     const alphaRad = alphaDeg * Math.PI / 180;
     const betaRad = betaDeg * Math.PI / 180;
@@ -40,7 +38,6 @@ function calculateCompatibleHeight(AB, alphaDeg, betaDeg) {
 // ============================================
 // 3. MAXIMUM VOLUME
 // ============================================
-// V_max = (||AB||³ * sin α * sin²β) / (12 * sin(α+β))
 function calculateMaxVolume(AB, alphaDeg, betaDeg) {
     const alphaRad = alphaDeg * Math.PI / 180;
     const betaRad = betaDeg * Math.PI / 180;
@@ -54,22 +51,19 @@ function calculateMaxVolume(AB, alphaDeg, betaDeg) {
 // ============================================
 // 4. GEOMETRIC INCOMPATIBILITY
 // ============================================
-// Δ_ABC = ||AC_xy|| * sin(α_xy - α)
 function calculateIncompatibility(AB, wA, alphaDeg, betaDeg) {
     const wA_c = calculateCompatibleHeight(AB, alphaDeg, betaDeg);
-    return Math.abs(wA - wA_c) * 0.1; // Normalized for visualization
+    return Math.abs(wA - wA_c) * 0.1;
 }
 
 // ============================================
 // 5. INFLATION CONSTRAINT
 // ============================================
-// h = Γ_max / Γ_c (log h >= 0 for inflatability)
 function calculateInflationConstraint(AB, alphaDeg, betaDeg) {
     const wA_c = calculateCompatibleHeight(AB, alphaDeg, betaDeg);
     const V_c = calculateVolume(AB, wA_c, alphaDeg, betaDeg);
     const V_max = calculateMaxVolume(AB, alphaDeg, betaDeg);
     
-    // Simplified arc length approximation
     const gamma_c = V_c;
     const gamma_max = V_max;
     
@@ -80,15 +74,13 @@ function calculateInflationConstraint(AB, alphaDeg, betaDeg) {
 // ============================================
 // 6. FACTOR OF SAFETY (Mechanical Design)
 // ============================================
-// Material: Corrugated Plastic Sheet
-// Yield Strength: 12 MPa (typical for polypropylene corrugated)
-// Thickness: 5 mm
+// Material: Corrugated Plastic Sheet (2mm thickness)
 const MATERIAL_PROPS = {
     name: "Corrugated Plastic Sheet",
     yieldStrength: 12, // MPa
     elasticModulus: 1500, // MPa (1.5 GPa)
     density: 0.9, // g/cm³
-    thickness: 5 // mm
+    thickness: 2 // mm (UPDATED)
 };
 
 function calculateFactorOfSafety(maxStressMPa) {
@@ -98,23 +90,17 @@ function calculateFactorOfSafety(maxStressMPa) {
 // ============================================
 // 7. VON MISES STRESS ESTIMATION
 // ============================================
-// Simplified beam bending stress for triangular face
 function estimateVonMisesStress(forceN, lengthMM, thicknessMM, widthMM) {
-    // Moment of inertia for rectangular section
     const I = (widthMM * Math.pow(thicknessMM, 3)) / 12;
-    // Bending moment (simplified: force * length / 4 for distributed load)
     const M = forceN * lengthMM / 4;
-    // Bending stress = M * c / I
     const c = thicknessMM / 2;
     const bendingStress = (M * c) / I;
-    // Von Mises for uniaxial bending
-    return bendingStress / 1e6; // Convert to MPa
+    return bendingStress / 1e6;
 }
 
 // ============================================
 // 8. ENERGY CALCULATION
 // ============================================
-// E = ∫ p dV
 function calculateEnergy(pressureArray, volumeArray) {
     let energy = 0;
     for (let i = 1; i < pressureArray.length; i++) {
@@ -132,29 +118,18 @@ function calculateVertexPosition(AB, alphaDeg, betaDeg, wA) {
     const alphaRad = alphaDeg * Math.PI / 180;
     const betaRad = betaDeg * Math.PI / 180;
     
-    // Vertex A coordinates (top)
     const A = { x: 0, y: 0, z: 0 };
-    
-    // Vertex B coordinates (bottom left)
     const B = {
         x: AB * Math.cos(alphaRad + betaRad),
         y: 0,
         z: -AB * Math.sin(alphaRad + betaRad)
     };
-    
-    // Vertex C coordinates (bottom right)
     const C = {
         x: AB * Math.cos(betaRad),
         y: 0,
         z: AB * Math.sin(betaRad)
     };
-    
-    // Deployed vertex A'
-    const A_prime = {
-        x: 0,
-        y: wA,
-        z: 0
-    };
+    const A_prime = { x: 0, y: wA, z: 0 };
     
     return { A, B, C, A_prime };
 }
@@ -167,14 +142,12 @@ function calculateDeploymentAngle(wA, AB, betaDeg) {
     const sinBeta = Math.sin(betaRad);
     
     const gamma = Math.acos(Math.sqrt(1 - Math.pow(wA / (AB * sinBeta), 2)));
-    return gamma * 180 / Math.PI; // Return in degrees
+    return gamma * 180 / Math.PI;
 }
 
-// ============================================
-// EXPORT FUNCTIONS
-// ============================================
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
+// Export for browser
+if (typeof window !== 'undefined') {
+    window.origamiCalculations = {
         calculateVolume,
         calculateCompatibleHeight,
         calculateMaxVolume,
