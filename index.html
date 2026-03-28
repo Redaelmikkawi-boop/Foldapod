@@ -1,1 +1,41 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origami FYP - Multistable Inflatable Structures</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Multistable Inflatable Origami Structures</h1>
+    <p>Interactive 3D simulator for mechanical engineering analysis</p>
+    
+    <div class="controls">
+        <label>α (alpha): <input type="range" id="alpha" min="10" max="80" step="1" value="45"></label>
+        <span id="alpha-value">45°</span>
+        
+        <label>β (beta): <input type="range" id="beta" min="10" max="80" step="1" value="32"></label>
+        <span id="beta-value">32°</span>
+        
+        <label>Number of folds (n): <input type="range" id="n" min="2" max="8" step="1" value="4"></label>
+        <span id="n-value">4</span>
+        
+        <label>Deployment height (w_A): <input type="range" id="wA" min="0" max="100" step="1" value="0"></label>
+        <span id="wA-value">0</span>
+        
+        <button id="toggle-state">Toggle to Deployed State</button>
+    </div>
+    
+    <div id="canvas-container"></div>
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
