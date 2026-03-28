@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CFD Airflow Simulation | Inflatable Origami Shelter</title>
+    <title>CFD Analysis | Inflatable Origami Shelter</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         body {
@@ -16,7 +16,7 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
             color: white;
             padding: 10px 20px;
             border-radius: 8px;
@@ -25,9 +25,7 @@
             z-index: 20;
             backdrop-filter: blur(5px);
             transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 14px;
         }
         
         .back-button:hover {
@@ -72,26 +70,27 @@
             cursor: pointer;
             border: none;
             border-radius: 4px;
-            background-color: #007bff;
+            background-color: #2c3e66;
             color: white;
             font-weight: bold;
             transition: all 0.2s;
+            font-family: monospace;
         }
         
         button:hover {
-            background-color: #0056b3;
+            background-color: #1e2a4a;
             transform: scale(1.02);
         }
         
         .btn-reset {
-            background-color: #e67e22;
+            background-color: #b45f2b;
         }
         
         .btn-reset:hover {
-            background-color: #d35400;
+            background-color: #8e4b21;
         }
         
-        .wind-speed {
+        .sim-status {
             position: absolute;
             bottom: 20px;
             right: 20px;
@@ -100,8 +99,7 @@
             padding: 8px 16px;
             border-radius: 8px;
             font-family: monospace;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 12px;
             z-index: 10;
             backdrop-filter: blur(4px);
         }
@@ -127,12 +125,11 @@
     <a href="index.html" class="back-button">← Back to Project Overview</a>
     
     <div id="info">
-        <strong>💨 CFD Airflow Simulation</strong><br>
-        🌬️ Wind Direction: <span style="color:#88aaff">-X → +X</span> (Left to Right)<br>
-        💨 Wind Speed: <span style="color:#88aaff">10 m/s</span> (Normal Wind)<br>
-        🔵 <span style="color:#44aaff">Blue</span> = Laminar Flow | 🟠 <span style="color:#ff8844">Orange</span> = Turbulent Wake<br>
-        🔴 <span style="color:#ff4444">Red</span> = Impact/Separation Zone<br>
-        🖱️ <span style="color:#ffaa66">Drag to rotate | Right-click to pan | Scroll to zoom</span>
+        <strong>Computational Fluid Dynamics Analysis</strong><br>
+        Wind Direction: -X → +X (Left to Right)<br>
+        Free Stream Velocity: 10 m/s<br>
+        Blue: Laminar Flow | Orange: Turbulent Wake | Red: Impact Zone<br>
+        Controls: Drag to rotate | Right-click to pan | Scroll to zoom
     </div>
     
     <div class="controls-panel">
@@ -140,8 +137,8 @@
         <button id="toggle-grid">Toggle Grid</button>
     </div>
     
-    <div class="wind-speed">
-        💨 Wind Speed: 10 m/s → <span style="color:#88aaff">-X to +X</span>
+    <div class="sim-status">
+        CFD Simulation | Velocity: 10 m/s | Direction: -X → +X
     </div>
     
     <div id="airflow-container" style="width: 100%; height: 100vh; overflow: hidden;"></div>
