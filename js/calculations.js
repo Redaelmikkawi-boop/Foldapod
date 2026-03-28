@@ -80,7 +80,7 @@ const MATERIAL_PROPS = {
     yieldStrength: 12, // MPa
     elasticModulus: 1500, // MPa (1.5 GPa)
     density: 0.9, // g/cm³
-    thickness: 2 // mm (UPDATED)
+    thickness: 2 // mm
 };
 
 function calculateFactorOfSafety(maxStressMPa) {
