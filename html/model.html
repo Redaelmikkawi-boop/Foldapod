@@ -30,4 +30,130 @@
             color: #eee;
             padding: 12px 20px;
             border-radius: 8px;
-            pointer-e
+            pointer-events: none;
+            z-index: 10;
+            font-size: 11px;
+            font-family: monospace;
+            border-left: 4px solid #ffaa66;
+            backdrop-filter: blur(5px);
+            max-width: 420px;
+            text-align: right;
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            pointer-events: auto;
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            backdrop-filter: blur(4px);
+        }
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        button:hover { background-color: #0056b3; transform: scale(1.02); }
+        .btn-full { background-color: #9b59b6; }
+        .btn-full:hover { background-color: #8e44ad; }
+        .btn-door { background-color: #e67e22; }
+        .btn-door:hover { background-color: #d35400; }
+        .slider-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.85);
+            padding: 12px 20px;
+            border-radius: 8px;
+            pointer-events: auto;
+            z-index: 10;
+            color: white;
+            font-family: monospace;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 220px;
+            backdrop-filter: blur(4px);
+        }
+        .slider-container label { font-size: 12px; font-weight: bold; }
+        input { width: 100%; cursor: pointer; }
+        .angle-value { text-align: center; font-size: 14px; color: #ffaa66; font-weight: bold; }
+        .coordinates {
+            position: absolute;
+            bottom: 100px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: #0f0;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .status {
+            position: absolute;
+            bottom: 140px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: #ffaa66;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            pointer-events: none;
+            z-index: 10;
+        }
+        @media (max-width: 768px) {
+            .controls { flex-wrap: wrap; max-width: 300px; }
+            button { padding: 6px 12px; font-size: 12px; }
+            #info { font-size: 9px; max-width: 280px; top: 70px; }
+            .slider-container { min-width: 180px; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Back to Project Overview</a>
+    <div id="info">
+        <strong>🏗️ Inflatable Origami Shelter with Animated Door</strong><br>
+        🔴 Face 1: 16 faces | 🔵 Face 2: 14 faces<br>
+        🟢 Face 3: 14 faces | 🟣 Face 4: 16 faces<br>
+        🚪 Door: 4 faces rotating around vertical hinge<br>
+        📦 Material: Corrugated Plastic (2mm thickness)
+    </div>
+    <div class="controls">
+        <button id="toggle-wireframe">Toggle Wireframe</button>
+        <button id="reset-view">Reset View</button>
+        <button id="toggle-grid">Toggle Grid</button>
+        <button id="toggle-full-model" class="btn-full">Toggle Full Model</button>
+        <button id="toggle-door" class="btn-door">Open/Close Door</button>
+    </div>
+    <div class="slider-container" id="door-slider-container">
+        <label>🚪 Door Angle: <span id="door-angle-value" class="angle-value">0°</span></label>
+        <input type="range" id="door-angle" min="0" max="90" step="1" value="0">
+        <span style="font-size: 10px; text-align: center;">0° = Closed | 90° = Fully Open</span>
+    </div>
+    <div class="coordinates">🚪 Door: 4 faces | Hinge on right vertical edge (orange line)</div>
+    <div class="status" id="status">🔴 Single Face Mode | Door Closed</div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="../js/model.js"></script>
+</body>
+</html>
