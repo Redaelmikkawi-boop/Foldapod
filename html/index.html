@@ -8,16 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
-    <!-- Header with Logo -->
     <div class="header-with-logo">
-        <img src="../images/LAUlogo.png" alt="LAU Logo" class="logo">
+        <img src="../images/LAUlogo.png" alt="LAU Logo" class="logo" onerror="this.style.display='none'">
         <div class="university-info">
             <div class="university-name">Lebanese American University</div>
             <div class="university-sub">School of Engineering</div>
         </div>
     </div>
     
-    <!-- Navigation -->
     <nav class="nav" style="margin-top: 80px;">
         <a href="#about">About</a>
         <a href="#origami">Origami</a>
@@ -29,7 +27,6 @@
         <a href="model.html" class="cta-nav">🎮 3D Model</a>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero" style="padding-top: 100px;">
         <div class="hero-content">
             <div class="badge">🎓 Mechanical Engineering Final Year Project</div>
@@ -39,7 +36,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="section">
         <h2 class="section-title">📖 About This Project</h2>
         <div class="topics-grid">
@@ -80,7 +76,6 @@
         </div>
     </section>
 
-    <!-- Origami Calculations Section -->
     <section id="origami" class="section">
         <h2 class="section-title">📐 Origami Geometry</h2>
         <p class="section-subtitle">Based on the inscribed angle theorem</p>
@@ -89,9 +84,11 @@
                 <div class="topic-header"><h3>📦 Volume</h3><p>Triangular building block</p></div>
                 <div class="topic-content">
                     <div class="equation-box">\[ V_{ABC} = \frac{w_A \|AB\|^2}{6} \frac{\sin \alpha}{\sin(\alpha+\beta)} \sqrt{\sin^2 \beta - \frac{w_A^2}{\|AB\|^2}} \]</div>
-                    <div class="param-list"><div class="param-item"><span class="param-name">α, β</span> - Internal angles</div>
-                    <div class="param-item"><span class="param-name">||AB||</span> - Edge length (949 mm)</div>
-                    <div class="param-item"><span class="param-name">w_A</span> - Deployment height</div></div>
+                    <div class="param-list">
+                        <div class="param-item"><span class="param-name">α, β</span> - Internal angles</div>
+                        <div class="param-item"><span class="param-name">||AB||</span> - Edge length (949 mm)</div>
+                        <div class="param-item"><span class="param-name">w_A</span> - Deployment height</div>
+                    </div>
                 </div>
             </div>
             <div class="topic-card">
@@ -117,7 +114,6 @@
         </div>
     </section>
 
-    <!-- Mechanical Engineering Design Section (from PDF) -->
     <section id="mechanical" class="section">
         <h2 class="section-title">⚙️ Mechanical Engineering Design</h2>
         <p class="section-subtitle">Based on Shigley's Mechanical Engineering Design</p>
@@ -133,8 +129,10 @@
                 <div class="topic-header"><h3>✂️ Shear Force & Bending Moment</h3></div>
                 <div class="topic-content">
                     <div class="equation-box">\[ V = \frac{dM}{dx} \qquad \frac{dV}{dx} = q \]</div>
-                    <div class="specs-grid"><div class="spec-item"><div class="spec-value">1250 N</div><div class="spec-label">Max Shear</div></div>
-                    <div class="spec-item"><div class="spec-value">3125 N·m</div><div class="spec-label">Max Moment</div></div></div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><div class="spec-value">1250 N</div><div class="spec-label">Max Shear</div></div>
+                        <div class="spec-item"><div class="spec-value">3125 N·m</div><div class="spec-label">Max Moment</div></div>
+                    </div>
                 </div>
             </div>
             <div class="topic-card">
@@ -148,8 +146,10 @@
                 <div class="topic-header"><h3>🏭 Pressurized Cylinder</h3></div>
                 <div class="topic-content">
                     <div class="equation-box">\[ \sigma_{\theta} = \frac{pr}{t} \qquad \sigma_a = \frac{pr}{2t} \]</div>
-                    <div class="specs-grid"><div class="spec-item"><div class="spec-value">1.2 MPa</div><div class="spec-label">Internal Pressure</div></div>
-                    <div class="spec-item"><div class="spec-value">48 MPa</div><div class="spec-label">Hoop Stress</div></div></div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><div class="spec-value">1.2 MPa</div><div class="spec-label">Internal Pressure</div></div>
+                        <div class="spec-item"><div class="spec-value">48 MPa</div><div class="spec-label">Hoop Stress</div></div>
+                    </div>
                 </div>
             </div>
             <div class="topic-card">
@@ -157,7 +157,6 @@
                 <div class="topic-content">
                     <div class="equation-box">\[ \sigma = \frac{My}{Ae(r_n - y)} \]</div>
                     <div class="equation-box">\[ r_n = \frac{A}{\int \frac{dA}{r}} \]</div>
-                    <p>Critical at inner surface: σ_i = 16.9 ksi (example from crane hook)</p>
                 </div>
             </div>
             <div class="topic-card">
@@ -186,7 +185,6 @@
         </div>
     </section>
 
-    <!-- Kinematics Study Section -->
     <section id="kinematics" class="section">
         <h2 class="section-title">🔄 Kinematics Study</h2>
         <p class="section-subtitle">Motion analysis of deployable structure</p>
@@ -195,8 +193,10 @@
                 <div class="topic-header"><h3>📐 Deployment Angle</h3></div>
                 <div class="topic-content">
                     <div class="equation-box">\[ \gamma = \arccos \left( \sqrt{1 - \frac{w_A^2}{\|AB\|^2 \sin^2 \beta}} \right) \]</div>
-                    <div class="specs-grid"><div class="spec-item"><div class="spec-value">0° → 90°</div><div class="spec-label">Deployment Range</div></div>
-                    <div class="spec-item"><div class="spec-value">1 DOF</div><div class="spec-label">Degree of Freedom</div></div></div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><div class="spec-value">0° → 90°</div><div class="spec-label">Deployment Range</div></div>
+                        <div class="spec-item"><div class="spec-value">1 DOF</div><div class="spec-label">Degree of Freedom</div></div>
+                    </div>
                 </div>
             </div>
             <div class="topic-card">
@@ -216,7 +216,6 @@
         </div>
     </section>
 
-    <!-- Materials Section -->
     <section id="materials" class="section">
         <h2 class="section-title">🧪 Material Selection</h2>
         <p class="section-subtitle">Corrugated Plastic Sheets (2mm thickness)</p>
@@ -240,12 +239,11 @@
         </div>
     </section>
 
-    <!-- Airflow Simulation Section -->
     <section id="airflow" class="section">
         <h2 class="section-title">💨 Airflow Simulation</h2>
         <p class="section-subtitle">Wind flow analysis around shelter structure</p>
         <div class="airflow-container">
-            <canvas id="airflow-canvas" class="airflow-canvas" width="800" height="400" style="width:100%; height:400px; background:#0a0a2a; border-radius:12px;"></canvas>
+            <canvas id="airflow-canvas" class="airflow-canvas"></canvas>
             <div class="boundary-conditions">
                 <div class="bc-card"><div class="bc-title">🌬️ Inlet Velocity</div><div class="bc-value">10 m/s (Normal Wind)</div></div>
                 <div class="bc-card"><div class="bc-title">📤 Outlet Pressure</div><div class="bc-value">101325 Pa (Atmospheric)</div></div>
@@ -257,18 +255,29 @@
         </div>
     </section>
 
-    <!-- Team Section -->
     <section id="team" class="section">
         <h2 class="section-title">👥 Project Team</h2>
         <p class="section-subtitle">Mechanical Engineering Final Year Project - Spring 2024</p>
         <div class="team-container">
-            <img src="../images/Teamimage.png" alt="Project Team" class="team-photo">
+            <img src="../images/Teamimage.png" alt="Project Team" class="team-photo" onerror="this.style.display='none'">
         </div>
         <div class="team-info">
-            <div class="supervisor"><div class="supervisor-name">Dr. Evan Fakhoury</div><div style="color: #aaa;">Project Supervisor</div></div>
-            <div><h3 style="color: #88aaff; margin: 20px 0;">Team Members</h3>
-            <div class="members-list"><span class="member-name">Reda El Mikkawi</span><span class="member-name">Ahmad Al Hajj</span><span class="member-name">Khaled Abed Al Ghani</span><span class="member-name">Ryan Azzi</span></div></div>
-            <div style="margin-top: 30px; color: #aaa;"><p>Lebanese American University | School of Engineering | Beirut, Lebanon</p></div>
+            <div class="supervisor">
+                <div class="supervisor-name">Dr. Evan Fakhoury</div>
+                <div style="color: #aaa;">Project Supervisor</div>
+            </div>
+            <div>
+                <h3 style="color: #88aaff; margin: 20px 0;">Team Members</h3>
+                <div class="members-list">
+                    <span class="member-name">Reda El Mikkawi</span>
+                    <span class="member-name">Ahmad Al Hajj</span>
+                    <span class="member-name">Khaled Abed Al Ghani</span>
+                    <span class="member-name">Ryan Azzi</span>
+                </div>
+            </div>
+            <div style="margin-top: 30px; color: #aaa;">
+                <p>Lebanese American University | School of Engineering | Beirut, Lebanon</p>
+            </div>
         </div>
     </section>
 
@@ -279,7 +288,13 @@
 
     <script type="module">
         import { initAirflowSimulation } from '../js/airflow.js';
-        initAirflowSimulation();
+        setTimeout(() => {
+            try {
+                initAirflowSimulation();
+            } catch(e) {
+                console.log('Airflow init error:', e);
+            }
+        }, 100);
     </script>
     <script src="../js/calculations.js"></script>
 </body>
