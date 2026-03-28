@@ -39,17 +39,17 @@ function rotatePointAroundAxis(point, axisPoint, axisDirection, angleRad) {
     // Using Rodrigues' rotation formula
     const u = axisDirection.clone().normalize();
     const p = point.clone().sub(axisPoint);
-    
+
     const cos = Math.cos(angleRad);
     const sin = Math.sin(angleRad);
-    
+
     const dot = p.dot(u);
     const cross = new THREE.Vector3().crossVectors(u, p);
-    
+
     const rotated = p.clone().multiplyScalar(cos)
         .add(cross.multiplyScalar(sin))
         .add(u.clone().multiplyScalar(dot * (1 - cos)));
-    
+
     return rotated.add(axisPoint);
 }
 
@@ -57,7 +57,7 @@ function rotateVerticesAroundHinge(verts, hingePointTop, hingePointBottom, angle
     // Rotate all vertices of a face group around the hinge axis
     const axisDirection = new THREE.Vector3(0, 1, 0); // Vertical axis through hinge points
     const hingeAxisPoint = hingePointBottom.clone();
-    
+
     const rotated = {};
     for (let key in verts) {
         rotated[key] = rotatePointAroundAxis(verts[key], hingeAxisPoint, axisDirection, angleRad);
@@ -72,7 +72,7 @@ function getVerticesAtAngle(angle) {
     const refG = new THREE.Vector3(F2_X * s, F2_Y * s, (F2_TOP_WIDTH/2) * s);
     const refJ = new THREE.Vector3(F3_X * s, F3_Y * s, -(F3_TOP_WIDTH/2) * s);
     const refK = new THREE.Vector3(F3_X * s, F3_Y * s, (F3_TOP_WIDTH/2) * s);
-    
+
     return {
         B: rotateAroundY(refB, angle),
         C: rotateAroundY(refC, angle),
@@ -98,18 +98,18 @@ function rotateAroundY(vec, angle) {
 // ============================================
 function createTriangularFace(v1, v2, v3, color = 0x66aaff, opacity = 0.85) {
     const group = new THREE.Group();
-    
+
     const edge1 = new THREE.Vector3().subVectors(v2, v1);
     const edge2 = new THREE.Vector3().subVectors(v3, v1);
     let normal = new THREE.Vector3().crossVectors(edge1, edge2).normalize();
     if (normal.y < 0) normal.negate();
-    
+
     const extrudeDir = normal.clone().multiplyScalar(THICKNESS * s);
-    
+
     const v1b = v1.clone().add(extrudeDir);
     const v2b = v2.clone().add(extrudeDir);
     const v3b = v3.clone().add(extrudeDir);
-    
+
     const material = new THREE.MeshPhongMaterial({
         color: color,
         side: THREE.DoubleSide,
@@ -117,25 +117,25 @@ function createTriangularFace(v1, v2, v3, color = 0x66aaff, opacity = 0.85) {
         transparent: true,
         opacity: opacity
     });
-    
+
     const frontGeo = new THREE.BufferGeometry();
     const frontVerts = [v1.x, v1.y, v1.z, v2.x, v2.y, v2.z, v3.x, v3.y, v3.z];
     frontGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(frontVerts), 3));
     frontGeo.setIndex([0, 1, 2]);
     frontGeo.computeVertexNormals();
     group.add(new THREE.Mesh(frontGeo, material));
-    
+
     const backGeo = new THREE.BufferGeometry();
     const backVerts = [v1b.x, v1b.y, v1b.z, v2b.x, v2b.y, v2b.z, v3b.x, v3b.y, v3b.z];
     backGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(backVerts), 3));
     backGeo.setIndex([0, 1, 2]);
     backGeo.computeVertexNormals();
     group.add(new THREE.Mesh(backGeo, material));
-    
+
     group.add(createSideFace(v1, v2, v2b, v1b, color));
     group.add(createSideFace(v2, v3, v3b, v2b, color));
     group.add(createSideFace(v3, v1, v1b, v3b, color));
-    
+
     return group;
 }
 
@@ -162,18 +162,18 @@ function createSideFace(p1, p2, p3, p4, color) {
 function createDoorGroup(doorAngleDeg = 0) {
     const doorGroup = new THREE.Group();
     const doorAngleRad = doorAngleDeg * Math.PI / 180;
-    
+
     // Get hinge edge points (vertical line at the right side of door frame)
     const hingeFramePos = getVerticesAtAngle(HINGE_INDEX * ANGLE_STEP_FULL);
     const hingePointBottom = hingeFramePos.B.clone();
     const hingePointTop = hingeFramePos.J.clone();
     const axisDirection = new THREE.Vector3(0, 1, 0); // Vertical axis
-    
+
     // For each door face index (2 and 3) - these are the door panels
     for (let doorIdx = DOOR_START_INDEX; doorIdx < DOOR_END_INDEX; doorIdx++) {
         const angle = doorIdx * ANGLE_STEP_FULL;
         let verts = getVerticesAtAngle(angle);
-        
+
         // Rotate vertices around the hinge axis for open position
         if (doorAngleRad !== 0) {
             const rotatedVerts = {};
@@ -182,15 +182,15 @@ function createDoorGroup(doorAngleDeg = 0) {
             }
             verts = rotatedVerts;
         }
-        
+
         // Create Face 2 (Blue/Orange) and Face 3 (Green/Orange) for this door panel
         const face2 = createQuadrilateralFace(verts.B, verts.C, verts.G, verts.F, 0xf39c12, 0.9);
         const face3 = createQuadrilateralFace(verts.F, verts.G, verts.K, verts.J, 0xf39c12, 0.9);
-        
+
         doorGroup.add(face2);
         doorGroup.add(face3);
     }
-    
+
     return doorGroup;
 }
 
@@ -201,17 +201,17 @@ function createFullModelWithoutDoor() {
     const group = new THREE.Group();
     const origin = new THREE.Vector3(0, 0, 0);
     const apex = new THREE.Vector3(0, APEX_Y * s, 0);
-    
+
     for (let i = 0; i < FACES_F1_F4; i++) {
         const angle = i * ANGLE_STEP_FULL;
         const verts = getVerticesAtAngle(angle);
-        
+
         // Face 1 (always)
         group.add(createTriangularFace(origin, verts.B, verts.C, 0xff6666, 0.8));
-        
+
         // Face 4 (always)
         group.add(createTriangularFace(verts.J, verts.K, apex, 0xff66ff, 0.9));
-        
+
         // Face 2 and Face 3 - skip door area
         const isDoorArea = (i >= DOOR_START_INDEX && i < DOOR_END_INDEX);
         if (!isDoorArea) {
@@ -219,7 +219,7 @@ function createFullModelWithoutDoor() {
             group.add(createQuadrilateralFace(verts.F, verts.G, verts.K, verts.J, 0x66ff66, 0.85));
         }
     }
-    
+
     return group;
 }
 
@@ -231,12 +231,12 @@ function createSingleFaceModel() {
     const origin = new THREE.Vector3(0, 0, 0);
     const apex = new THREE.Vector3(0, APEX_Y * s, 0);
     const verts = getVerticesAtAngle(0);
-    
+
     group.add(createTriangularFace(origin, verts.B, verts.C, 0xff6666, 0.85));
     group.add(createQuadrilateralFace(verts.B, verts.C, verts.G, verts.F, 0x66aaff, 0.85));
     group.add(createQuadrilateralFace(verts.F, verts.G, verts.K, verts.J, 0x66ff66, 0.85));
     group.add(createTriangularFace(verts.J, verts.K, apex, 0xff66ff, 0.9));
-    
+
     return group;
 }
 
@@ -322,15 +322,15 @@ function updateModel() {
         scene.remove(doorModel);
         doorModel = null;
     }
-    
+
     if (isFullModel) {
         currentModel = createFullModelWithoutDoor();
         scene.add(currentModel);
-        
+
         // Create door separately
         doorModel = createDoorGroup(doorAngle);
         scene.add(doorModel);
-        
+
         document.getElementById('status').innerHTML = '🟣 Full Model Mode | Door Closed';
         document.getElementById('door-slider-container').style.display = 'flex';
     } else {
@@ -347,7 +347,7 @@ function updateDoorAngle(angleDeg) {
         scene.remove(doorModel);
         doorModel = createDoorGroup(doorAngle);
         scene.add(doorModel);
-        
+
         const statusText = doorAngle === 0 ? 'Door Closed' : 
                           (doorAngle >= 90 ? 'Door Fully Open' : `Door ${doorAngle}° Open`);
         document.getElementById('status').innerHTML = `🟣 Full Model Mode | ${statusText}`;
