@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
+    <!-- Header with Logo -->
     <div class="header-with-logo">
         <img src="../images/LAUlogo.png" alt="LAU Logo" class="logo" onerror="this.style.display='none'">
         <div class="university-info">
@@ -16,17 +17,19 @@
         </div>
     </div>
     
+    <!-- Navigation -->
     <nav class="nav" style="margin-top: 80px;">
-    <a href="#about">About</a>
-    <a href="#origami">Origami</a>
-    <a href="#mechanical">Mechanical</a>
-    <a href="#kinematics">Kinematics</a>
-    <a href="#materials">Materials</a>
-    <a href="airflow.html">💨 Airflow</a>
-    <a href="#team">Team</a>
-    <a href="model.html" class="cta-nav">🎮 3D Model</a>
-</nav>
+        <a href="#about">About</a>
+        <a href="#origami">Origami</a>
+        <a href="#mechanical">Mechanical</a>
+        <a href="#kinematics">Kinematics</a>
+        <a href="#materials">Materials</a>
+        <a href="airflow.html">💨 Airflow</a>
+        <a href="#team">Team</a>
+        <a href="model.html" class="cta-nav">🎮 3D Model</a>
+    </nav>
 
+    <!-- Hero Section -->
     <section class="hero" style="padding-top: 100px;">
         <div class="hero-content">
             <div class="badge">🎓 Mechanical Engineering Final Year Project</div>
@@ -36,6 +39,7 @@
         </div>
     </section>
 
+    <!-- About Section - Why This Shape -->
     <section id="about" class="section">
         <h2 class="section-title">📖 About This Project</h2>
         <div class="topics-grid">
@@ -45,7 +49,7 @@
                     <p>Inspired by the inscribed angle theorem</p>
                 </div>
                 <div class="topic-content">
-                    <p>The shelter design allows triangular building blocks to have two compatible states: flat and deployed.</p>
+                    <p>The shelter design allows triangular building blocks to have two compatible states: flat and deployed. This creates a structure that can:</p>
                     <ul style="margin-top: 15px; margin-left: 20px; color: #ccc;">
                         <li>✅ Fold flat for transport (0.5m height)</li>
                         <li>✅ Deploy to full height (2.3m) using air pressure</li>
@@ -76,6 +80,7 @@
         </div>
     </section>
 
+    <!-- Origami Calculations Section -->
     <section id="origami" class="section">
         <h2 class="section-title">📐 Origami Geometry</h2>
         <p class="section-subtitle">Based on the inscribed angle theorem</p>
@@ -114,6 +119,7 @@
         </div>
     </section>
 
+    <!-- Mechanical Engineering Design Section -->
     <section id="mechanical" class="section">
         <h2 class="section-title">⚙️ Mechanical Engineering Design</h2>
         <p class="section-subtitle">Based on Shigley's Mechanical Engineering Design</p>
@@ -185,6 +191,7 @@
         </div>
     </section>
 
+    <!-- Kinematics Study Section -->
     <section id="kinematics" class="section">
         <h2 class="section-title">🔄 Kinematics Study</h2>
         <p class="section-subtitle">Motion analysis of deployable structure</p>
@@ -216,6 +223,7 @@
         </div>
     </section>
 
+    <!-- Materials Section -->
     <section id="materials" class="section">
         <h2 class="section-title">🧪 Material Selection</h2>
         <p class="section-subtitle">Corrugated Plastic Sheets (2mm thickness)</p>
@@ -239,33 +247,45 @@
         </div>
     </section>
 
+    <!-- Airflow Section - Link to 3D Simulation -->
     <section id="airflow" class="section">
         <h2 class="section-title">💨 Airflow Simulation</h2>
-        <p class="section-subtitle">Wind flow analysis around shelter structure</p>
-        <div class="airflow-container">
-            <canvas id="airflow-canvas" class="airflow-canvas"></canvas>
-            <div class="boundary-conditions">
-                <div class="bc-card"><div class="bc-title">🌬️ Inlet Velocity</div><div class="bc-value">10 m/s (Normal Wind)</div></div>
-                <div class="bc-card"><div class="bc-title">📤 Outlet Pressure</div><div class="bc-value">101325 Pa (Atmospheric)</div></div>
-                <div class="bc-card"><div class="bc-title">🌀 Turbulence Intensity</div><div class="bc-value">5%</div></div>
-                <div class="bc-card"><div class="bc-title">🧱 Wall Shear Stress</div><div class="bc-value">0.5 Pa</div></div>
-                <div class="bc-card"><div class="bc-title">🌡️ Air Density</div><div class="bc-value">1.225 kg/m³</div></div>
-                <div class="bc-card"><div class="bc-title">🎯 Reynolds Number</div><div class="bc-value">~1.2×10⁶ (Turbulent)</div></div>
-            </div>
+        <p class="section-subtitle">3D wind flow analysis around shelter structure</p>
+        
+        <div class="topic-card" style="text-align: center; padding: 40px; background: linear-gradient(135deg, rgba(100,100,200,0.1), rgba(155,89,182,0.1));">
+            <div class="card-icon" style="font-size: 4rem;">🌬️</div>
+            <h3 style="color: #88aaff; margin-bottom: 20px;">Interactive 3D Airflow Simulation</h3>
+            <p style="margin-bottom: 20px; color: #ccc;">Wind speed: <strong>10 m/s</strong> from -X to +X direction | Turbulent flow with <strong>250 particles</strong></p>
+            <p style="margin-bottom: 30px; color: #aaa;">Boundary Conditions: Inlet Velocity 10 m/s | Outlet Pressure 101325 Pa | Turbulence Intensity 5%</p>
+            <a href="airflow.html" class="cta-button" style="display: inline-block;">🚀 Launch 3D Airflow Simulation →</a>
+        </div>
+        
+        <div class="boundary-conditions" style="margin-top: 30px;">
+            <div class="bc-card"><div class="bc-title">🌬️ Inlet Velocity</div><div class="bc-value">10 m/s (Normal Wind)</div></div>
+            <div class="bc-card"><div class="bc-title">📤 Outlet Pressure</div><div class="bc-value">101325 Pa (Atmospheric)</div></div>
+            <div class="bc-card"><div class="bc-title">🌀 Turbulence Intensity</div><div class="bc-value">5%</div></div>
+            <div class="bc-card"><div class="bc-title">🧱 Wall Shear Stress</div><div class="bc-value">0.5 Pa</div></div>
+            <div class="bc-card"><div class="bc-title">🌡️ Air Density</div><div class="bc-value">1.225 kg/m³</div></div>
+            <div class="bc-card"><div class="bc-title">🎯 Reynolds Number</div><div class="bc-value">~1.2×10⁶ (Turbulent)</div></div>
+            <div class="bc-card"><div class="bc-title">📐 Wind Direction</div><div class="bc-value">-X → +X (Left to Right)</div></div>
         </div>
     </section>
 
+    <!-- Team Section -->
     <section id="team" class="section">
         <h2 class="section-title">👥 Project Team</h2>
         <p class="section-subtitle">Mechanical Engineering Final Year Project - Spring 2024</p>
+        
         <div class="team-container">
             <img src="../images/Teamimage.png" alt="Project Team" class="team-photo" onerror="this.style.display='none'">
         </div>
+        
         <div class="team-info">
             <div class="supervisor">
                 <div class="supervisor-name">Dr. Evan Fakhoury</div>
                 <div style="color: #aaa;">Project Supervisor</div>
             </div>
+            
             <div>
                 <h3 style="color: #88aaff; margin: 20px 0;">Team Members</h3>
                 <div class="members-list">
@@ -275,27 +295,20 @@
                     <span class="member-name">Ryan Azzi</span>
                 </div>
             </div>
+            
             <div style="margin-top: 30px; color: #aaa;">
                 <p>Lebanese American University | School of Engineering | Beirut, Lebanon</p>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <p>© 2024 Mechanical Engineering Final Year Project | Lebanese American University</p>
         <p>Based on research by Melancon et al. "Multistable inflatable origami structures at the meter-scale"</p>
+        <p>Technologies: Three.js | HTML5/CSS3 | JavaScript | MathJax | Rodrigues Rotation Formula</p>
     </footer>
 
-    <script type="module">
-        import { initAirflowSimulation } from '../js/airflow.js';
-        setTimeout(() => {
-            try {
-                initAirflowSimulation();
-            } catch(e) {
-                console.log('Airflow init error:', e);
-            }
-        }, 100);
-    </script>
     <script src="../js/calculations.js"></script>
 </body>
 </html>
